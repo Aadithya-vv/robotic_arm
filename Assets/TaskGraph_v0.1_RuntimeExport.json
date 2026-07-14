@@ -1,0 +1,137 @@
+{
+  "version": "v0.1",
+  "release": "Core Platform",
+  "exported_at": "2026-07-14T13:48:52.493495",
+  "healthy": true,
+  "engines": {
+    "Bootstrap": {
+      "id": "ENG-001",
+      "state": "ready",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Kernel": {
+      "id": "ENG-002",
+      "state": "running",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Configuration": {
+      "id": "ENG-003",
+      "state": "available",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Registry": {
+      "id": "ENG-004",
+      "state": "ready",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Event Bus": {
+      "id": "ENG-005",
+      "state": "accepting_events",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Memory": {
+      "id": "ENG-006",
+      "state": "ready",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Logging": {
+      "id": "ENG-007",
+      "state": "ready",
+      "healthy": true,
+      "version": "1.0.0"
+    }
+  },
+  "validation": [
+    {
+      "name": "Bootstrap",
+      "passed": true,
+      "detail": "state=ready"
+    },
+    {
+      "name": "Kernel",
+      "passed": true,
+      "detail": "state=running"
+    },
+    {
+      "name": "Configuration",
+      "passed": true,
+      "detail": "state=available"
+    },
+    {
+      "name": "Registry",
+      "passed": true,
+      "detail": "state=ready"
+    },
+    {
+      "name": "Event Bus",
+      "passed": true,
+      "detail": "state=accepting_events"
+    },
+    {
+      "name": "Memory",
+      "passed": true,
+      "detail": "state=ready"
+    },
+    {
+      "name": "Logging",
+      "passed": true,
+      "detail": "state=ready"
+    },
+    {
+      "name": "Startup order",
+      "passed": true,
+      "detail": "Bootstrap -> Logging -> Configuration -> Registry -> Event Bus -> Memory"
+    },
+    {
+      "name": "Configuration loaded",
+      "passed": true,
+      "detail": "validated runtime settings available"
+    },
+    {
+      "name": "Registry populated",
+      "passed": true,
+      "detail": "seven Engine registrations"
+    },
+    {
+      "name": "Registry lookup",
+      "passed": true,
+      "detail": "ENG-007 metadata resolved"
+    },
+    {
+      "name": "Memory initialized",
+      "passed": true,
+      "detail": "memory snapshot available"
+    },
+    {
+      "name": "Memory operations",
+      "passed": true,
+      "detail": "temporary context round trip"
+    },
+    {
+      "name": "Logging initialized",
+      "passed": true,
+      "detail": "accepted_records=63"
+    },
+    {
+      "name": "Event Bus operational",
+      "passed": true,
+      "detail": "event bus snapshot available"
+    },
+    {
+      "name": "Event delivery",
+      "passed": true,
+      "detail": "one contract delivery completed"
+    },
+    {
+      "name": "Runtime health",
+      "passed": true,
+      "detail": "all seven Engines green"
+    }
+  ]
+}

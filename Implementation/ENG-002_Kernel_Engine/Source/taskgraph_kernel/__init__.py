@@ -1,0 +1,45 @@
+"""Public surface for ENG-002, the TaskGraph Kernel Engine."""
+
+from .contracts import (
+    BootstrapReadinessProvider,
+    CoordinationRequest,
+    ExplanationRecord,
+    KernelConfiguration,
+    KernelContract,
+    KernelError,
+    KernelResponse,
+    KernelStartRequest,
+    KernelState,
+    KernelStopRequest,
+    LogRecord,
+    LogSink,
+    ManagedParticipant,
+    NullLogSink,
+    ParticipantResult,
+    ParticipantState,
+    ResponseStatus,
+    RuntimeSnapshot,
+)
+from .engine import KernelEngine
+
+__all__ = [
+    "BootstrapReadinessProvider",
+    "CoordinationRequest",
+    "ExplanationRecord",
+    "KernelConfiguration",
+    "KernelContract",
+    "KernelEngine",
+    "KernelError",
+    "KernelResponse",
+    "KernelStartRequest",
+    "KernelState",
+    "KernelStopRequest",
+    "LogRecord",
+    "LogSink",
+    "ManagedParticipant",
+    "NullLogSink",
+    "ParticipantResult",
+    "ParticipantState",
+    "ResponseStatus",
+    "RuntimeSnapshot",
+]
