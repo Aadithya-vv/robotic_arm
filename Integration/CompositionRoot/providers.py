@@ -38,6 +38,9 @@ class DeferredLogSink:
             self._target=target
             pending=tuple(self._buffer);self._buffer.clear()
             for record in pending:target.record(record)
+    def detach(self):
+        """Stop forwarding during reverse shutdown while retaining late diagnostics."""
+        with self._lock:self._target=None
     @property
     def pending_count(self):
         with self._lock:return len(self._buffer)

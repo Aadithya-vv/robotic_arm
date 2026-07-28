@@ -1,0 +1,35 @@
+{
+  "robot_id": "desktop-arm-v1",
+  "robot_name": "Desktop Arm V1",
+  "robot_model": "TG-DA6",
+  "robot_version": "1.0.0",
+  "number_of_joints": 6,
+  "joint_names": ["base", "shoulder", "elbow", "wrist_pitch", "wrist_roll", "tool"],
+  "joint_types": ["revolute", "revolute", "revolute", "revolute", "revolute", "fixed"],
+  "workspace_origin": {"x": 0, "y": 0, "z": 0},
+  "workspace_bounds": {"x": [-450, 450], "y": [-450, 450], "z": [0, 650]},
+  "coordinate_system": "right-handed Cartesian",
+  "units": {"distance": "mm", "angle": "degrees", "time": "seconds"},
+  "end_effector": {"name": "Adaptive Parallel Gripper", "type": "electric_gripper"},
+  "supported_operations": ["PICK", "TRANSPORT", "PLACE", "IDLE", "WAIT", "RELEASE"],
+  "speed_profiles": [
+    {"id": "precision", "name": "Precision", "scale": 0.35},
+    {"id": "balanced", "name": "Balanced", "scale": 0.65},
+    {"id": "rapid", "name": "Rapid", "scale": 0.9}
+  ],
+  "accuracy_profiles": [
+    {"id": "fine", "name": "Fine", "tolerance_mm": 1},
+    {"id": "standard", "name": "Standard", "tolerance_mm": 3}
+  ],
+  "home_poses": [
+    {"id": "ready", "name": "Ready", "pose": [0, -30, 65, 0, 55, 0]},
+    {"id": "compact", "name": "Compact", "pose": [0, -70, 110, 0, 40, 0]}
+  ],
+  "object_vocabulary": ["container", "cup", "bottle", "tray", "tool", "surface"],
+  "connection": {
+    "service": "_robot-oram._tcp.local",
+    "transport": "WiFi",
+    "host": "simulated.local",
+    "port": 7421
+  }
+}

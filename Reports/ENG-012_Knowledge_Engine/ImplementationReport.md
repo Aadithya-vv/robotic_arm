@@ -1,35 +1,18 @@
-# ENG-012 - Knowledge Engine Implementation Report
+# ENG-012 Knowledge Engine Implementation Report
 
 | Field | Value |
 |---|---|
-| Status | Implementation Ready — Not Implemented |
-| Specification | Specifications/ENG-012_Knowledge_Engine/Specification.md |
-| Framework Prompt | Prompts/ENG-012_Knowledge_Engine/FrameworkPrompt.md |
+| Status | Implemented — Awaiting Architecture Review |
+| Contract | `taskgraph.knowledge` 1.0.0 |
+| Schema | Knowledge Graph 1.0 |
+| Milestone | TaskGraph v1.2 / Milestone 3 |
 
-## Work Completed
+ENG-012 is implemented as an immutable, thread-safe, non-reasoning Knowledge Engine. It consumes Semantic Objects exclusively through an injected structural protocol, generates checksummed Knowledge Records from declared source facts, owns its atomic derived `knowledge_graph.json`, provides lookup/search/statistics/export/integrity APIs, and never reads Object Library or imports ENG-011 implementation code.
 
-Not implemented.
+The Composition Root adapts ENG-011’s public contract, injects storage, configuration, and logging, registers ENG-012, starts it after ENG-011, includes it in twelve-Engine health/validation, and shuts it down first. WebAPI routes and the Knowledge Viewer are read-only.
 
-## Files Created or Modified
+Validation: 30/30 ENG-012 tests pass; 369 ENG-001–012 tests pass; five launcher/session regressions pass. Twelve-Engine health is true. Knowledge graph plus statistics/search/categories/properties/relationships routes return 200. Python/TypeScript compilation, ESLint (zero errors; one pre-existing warning), and Vite production build pass. The 1,000-record performance test remains below two seconds.
 
-To be completed during authorized implementation.
+Rule 40 source audit found no Semantic Inventory implementation/package, Object Library, Affordance, or Planner import. Freeze is recommended only after architecture review.
 
-## Public Interfaces
-
-Not implemented.
-
-## Tests and Results
-
-No tests generated or executed during Repository Generation.
-
-## Contract Compliance and Limitations
-
-Pending implementation and review. The Engine is not implemented.
-
-## Recommendations
-
-To be completed after implementation.
-
-## Review and Freeze Status
-
-Ready for engineering; awaiting implementation, testing, documentation synchronization, report completion, and architect review.
+See [TaskGraph v1.2 ENG-012 milestone report](../../TaskGraph_v1.2_Engine012_KnowledgeEngine_Report.md).

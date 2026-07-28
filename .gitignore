@@ -26,3 +26,7 @@ htmlcov/
 
 # Temporary
 *.tmp
+
+# Web presentation
+WebApp/node_modules/
+WebApp/dist/

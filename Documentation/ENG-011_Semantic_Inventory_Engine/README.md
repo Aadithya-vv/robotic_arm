@@ -9,4 +9,9 @@ Authoritative documentation location for ENG-011.
 - Source: ../../Implementation/ENG-011_Semantic_Inventory_Engine/Source/
 - Tests: ../../Tests/ENG-011_Semantic_Inventory_Engine/
 
-No implementation documentation exists yet.
+- [Architecture](SemanticInventory_Architecture.md)
+- [Data Flow](SemanticInventory_DataFlow.md)
+- [API](SemanticInventory_API.md)
+- [Test Plan](SemanticInventory_TestPlan.md)
+
+Implemented in TaskGraph v1.2 with an immutable, searchable, persistent derived inventory and read-only Web projection.

@@ -1,4 +1,4 @@
-"""TaskGraph v0.1 executable entry point."""
+"""TaskGraph v0.4 executable entry point."""
 from pathlib import Path
 import argparse,sys,traceback
 ROOT=Path(__file__).resolve().parents[2]
@@ -7,13 +7,14 @@ sys.path.insert(0,str(Path(__file__).resolve().parent));sys.path.insert(0,str(RO
 from startup import StartupFailure,create_runtime
 from validation import validate_runtime,validation_passed
 def main():
-    parser=argparse.ArgumentParser(description="TaskGraph v0.1 Core Platform");parser.add_argument("--validate-only",action="store_true");args=parser.parse_args()
+    parser=argparse.ArgumentParser(description="TaskGraph v0.4 — Robotic Teaching Workstation");parser.add_argument("--validate-only",action="store_true");args=parser.parse_args()
+    runtime=None
     try:
         runtime=create_runtime();checks=validate_runtime(runtime)
         if args.validate_only:
             for check in checks:print(("PASS" if check.passed else "FAIL"),check.name,"-",check.detail)
             from shutdown import shutdown_runtime
-            shutdown=shutdown_runtime(runtime,"m1-validation-shutdown")
+            shutdown=shutdown_runtime(runtime,"m2-validation-shutdown")
             shutdown_ok=all(value.status.value=="succeeded" for value in shutdown.values())
             for name,value in shutdown.items():print(("PASS" if value.status.value=="succeeded" else "FAIL"),f"Shutdown {name}","-",value.state.value)
             return 0 if validation_passed(checks) and shutdown_ok else 1
@@ -24,5 +25,11 @@ def main():
         for error in getattr(exc.response,"errors",()):print(f"{error.code}: {error.message}",file=sys.stderr)
         return 1
     except Exception:
+        if runtime is not None:
+            try:
+                from shutdown import shutdown_runtime
+                shutdown_runtime(runtime,"startup-error-shutdown")
+            except Exception:
+                pass
         traceback.print_exc();return 1
 if __name__=="__main__":raise SystemExit(main())

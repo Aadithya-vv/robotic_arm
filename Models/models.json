@@ -1,0 +1,25 @@
+{
+  "models": {
+    "yolo11n": {
+      "file": "yolo11n.pt",
+      "url": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo11n.pt",
+      "sha256": "0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1",
+      "provider": "ultralytics",
+      "required": true
+    },
+    "yolo11s": {
+      "file": "yolo11s.pt",
+      "url": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo11s.pt",
+      "sha256": "85a76fe86dd8afe384648546b56a7a78580c7cb7b404fc595f97969322d502d5",
+      "provider": "ultralytics",
+      "required": false
+    },
+    "yolo11m": {
+      "file": "yolo11m.pt",
+      "url": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo11m.pt",
+      "sha256": "d5ffc1a674953a08e11a8d21e022781b1b23a19b730afc309290bd9fb5305b95",
+      "provider": "ultralytics",
+      "required": false
+    }
+  }
+}

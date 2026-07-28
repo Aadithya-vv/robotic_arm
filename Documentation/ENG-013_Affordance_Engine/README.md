@@ -9,4 +9,10 @@ Authoritative documentation location for ENG-013.
 - Source: ../../Implementation/ENG-013_Affordance_Engine/Source/
 - Tests: ../../Tests/ENG-013_Affordance_Engine/
 
-No implementation documentation exists yet.
+- [Architecture](AffordanceEngine_Architecture.md)
+- [Data Flow](AffordanceEngine_DataFlow.md)
+- [API](AffordanceEngine_API.md)
+- [Test Plan](AffordanceEngine_TestPlan.md)
+- [Rule Catalog](AffordanceRuleCatalog.md)
+
+Implemented in TaskGraph v1.2 with deterministic rule catalog 1.0.0.

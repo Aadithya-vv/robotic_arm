@@ -1,0 +1,146 @@
+{
+  "version": "1.0.0",
+  "schema_version": "1.0",
+  "rule_version": "1.0.0",
+  "generated_at": "2026-07-28T03:53:22.277188+00:00",
+  "records": [
+    {
+      "affordance_id": "affordance:user-object-32468f735f2d",
+      "object_id": "user-object-32468f735f2d",
+      "knowledge_id": "knowledge:user-object-32468f735f2d",
+      "object_name": "Spoon",
+      "summary": "Spoon: hold, move, pick, place, stir, transfer.",
+      "affordances": [
+        "hold",
+        "move",
+        "pick",
+        "place",
+        "stir",
+        "transfer"
+      ],
+      "preconditions": {
+        "hold": [
+          "object available"
+        ],
+        "move": [
+          "object available"
+        ],
+        "pick": [
+          "object available"
+        ],
+        "place": [
+          "object available"
+        ],
+        "stir": [
+          "object available"
+        ],
+        "transfer": [
+          "object available"
+        ]
+      },
+      "postconditions": {
+        "hold": [
+          "capability applied"
+        ],
+        "move": [
+          "capability applied"
+        ],
+        "pick": [
+          "capability applied"
+        ],
+        "place": [
+          "capability applied"
+        ],
+        "stir": [
+          "capability applied"
+        ],
+        "transfer": [
+          "capability applied"
+        ]
+      },
+      "constraints": {
+        "hold": [
+          "context validation required"
+        ],
+        "move": [
+          "context validation required"
+        ],
+        "pick": [
+          "context validation required"
+        ],
+        "place": [
+          "context validation required"
+        ],
+        "stir": [
+          "context validation required"
+        ],
+        "transfer": [
+          "context validation required"
+        ]
+      },
+      "safety_notes": {
+        "hold": [
+          "execution safety belongs downstream"
+        ],
+        "move": [
+          "execution safety belongs downstream"
+        ],
+        "pick": [
+          "execution safety belongs downstream"
+        ],
+        "place": [
+          "execution safety belongs downstream"
+        ],
+        "stir": [
+          "execution safety belongs downstream"
+        ],
+        "transfer": [
+          "execution safety belongs downstream"
+        ]
+      },
+      "confidence": 0.8060298036961329,
+      "knowledge_sources": [
+        "semantic_inventory",
+        "user-object-32468f735f2d",
+        "knowledge:user-object-32468f735f2d"
+      ],
+      "generation_rule": [
+        "name.spoon@1.0.0"
+      ],
+      "metadata": {
+        "category": "Detected Objects",
+        "action_categories": {
+          "hold": "manipulation",
+          "move": "manipulation",
+          "pick": "manipulation",
+          "place": "manipulation",
+          "stir": "tool use",
+          "transfer": "transport"
+        }
+      },
+      "schema_version": "1.0",
+      "engine_version": "1.0.0",
+      "checksum": "4ef9492066082672050b1c4af6120634610020fd0211408871931ea574213edd",
+      "created": "2026-07-21T11:35:40",
+      "updated": "2026-07-21T11:36:45"
+    }
+  ],
+  "statistics": {
+    "total_records": 1,
+    "total_capabilities": 6,
+    "actions": {
+      "hold": 1,
+      "move": 1,
+      "pick": 1,
+      "place": 1,
+      "stir": 1,
+      "transfer": 1
+    },
+    "action_categories": {
+      "manipulation": 4,
+      "tool use": 1,
+      "transport": 1
+    },
+    "average_confidence": 0.8060298036961329
+  }
+}

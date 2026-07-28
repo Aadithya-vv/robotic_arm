@@ -1,0 +1,2574 @@
+{
+  "application_version": "v0.2.3",
+  "milestone": "M2 Perception Layer",
+  "exported_at": "2026-07-15T14:25:17.342855",
+  "runtime": {
+    "duration_seconds": 2.0007568999972136,
+    "pipeline_runs": 3,
+    "fps": 1.4994325397574177
+  },
+  "system": {
+    "platform": "local",
+    "repository_version": "v0.2.3",
+    "engine_count": 10
+  },
+  "runtime_health": true,
+  "engines": {
+    "Bootstrap": {
+      "id": "ENG-001",
+      "state": "ready",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Kernel": {
+      "id": "ENG-002",
+      "state": "running",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Configuration": {
+      "id": "ENG-003",
+      "state": "available",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Registry": {
+      "id": "ENG-004",
+      "state": "ready",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Event Bus": {
+      "id": "ENG-005",
+      "state": "accepting_events",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Memory": {
+      "id": "ENG-006",
+      "state": "ready",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Logging": {
+      "id": "ENG-007",
+      "state": "ready",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Camera": {
+      "id": "ENG-008",
+      "state": "ready",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Vision": {
+      "id": "ENG-009",
+      "state": "ready",
+      "healthy": true,
+      "version": "1.0.0"
+    },
+    "Scene": {
+      "id": "ENG-010",
+      "state": "active",
+      "healthy": true,
+      "version": "1.0.0"
+    }
+  },
+  "camera": {
+    "frame_id": "v023-validation:camera-observation:3",
+    "size": [
+      64,
+      48
+    ],
+    "timestamp": "mock-frame-3"
+  },
+  "vision": {
+    "observation_id": "v023-validation:vision-observation:7",
+    "objects": 4,
+    "features": 1,
+    "processing_time_ms": 11.858300000312738
+  },
+  "scene": {
+    "scene_id": "v023-test:scene",
+    "tracked_objects": [
+      "scene-object-000001",
+      "scene-object-000002",
+      "scene-object-000003",
+      "scene-object-000004"
+    ],
+    "relationships": [
+      "left_of",
+      "near",
+      "above",
+      "near",
+      "left_of",
+      "above",
+      "near",
+      "right_of",
+      "near",
+      "right_of",
+      "above",
+      "near",
+      "above",
+      "near",
+      "below",
+      "near",
+      "left_of",
+      "below",
+      "near",
+      "left_of",
+      "near",
+      "right_of",
+      "below",
+      "near",
+      "below",
+      "near",
+      "right_of",
+      "near"
+    ],
+    "statistics": {
+      "updates": 3,
+      "created": 4,
+      "removed": 0
+    }
+  },
+  "validation": [
+    {
+      "name": "Bootstrap",
+      "passed": true,
+      "detail": "state=ready",
+      "elapsed_ms": 0.0031999989005271345,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Kernel",
+      "passed": true,
+      "detail": "state=running",
+      "elapsed_ms": 0.0018999999156221747,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Configuration",
+      "passed": true,
+      "detail": "state=available",
+      "elapsed_ms": 0.000700001692166552,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Registry",
+      "passed": true,
+      "detail": "state=ready",
+      "elapsed_ms": 0.0005000001692678779,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Event Bus",
+      "passed": true,
+      "detail": "state=accepting_events",
+      "elapsed_ms": 0.000700001692166552,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Memory",
+      "passed": true,
+      "detail": "state=ready",
+      "elapsed_ms": 0.00039999940781854093,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Logging",
+      "passed": true,
+      "detail": "state=ready",
+      "elapsed_ms": 0.000400003045797348,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Camera",
+      "passed": true,
+      "detail": "state=ready",
+      "elapsed_ms": 0.00039999940781854093,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Vision",
+      "passed": true,
+      "detail": "state=ready",
+      "elapsed_ms": 0.000300002284348011,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Scene",
+      "passed": true,
+      "detail": "state=active",
+      "elapsed_ms": 0.0002999986463692039,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Startup order",
+      "passed": true,
+      "detail": "bootstrap -> kernel -> configuration -> registry -> event_bus -> memory -> logging -> camera -> vision -> scene",
+      "elapsed_ms": 0.004499997885432094,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Registry populated",
+      "passed": true,
+      "detail": "registrations=10",
+      "elapsed_ms": 0.19610000163083896,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Camera Provider",
+      "passed": true,
+      "detail": "provider=mock",
+      "elapsed_ms": 0.1458000006095972,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Frame Acquisition",
+      "passed": true,
+      "detail": "frame=v023-validation:camera-observation:3",
+      "elapsed_ms": 16.431800002465025,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Vision Processing",
+      "passed": true,
+      "detail": "objects=4",
+      "elapsed_ms": 16.44230000238167,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Scene Tracking",
+      "passed": true,
+      "detail": "tracked=4",
+      "elapsed_ms": 16.44790000136709,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Scene Relationships",
+      "passed": true,
+      "detail": "relationships=28",
+      "elapsed_ms": 16.451800001959782,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Scene Snapshot",
+      "passed": true,
+      "detail": "immutable snapshot available",
+      "elapsed_ms": 16.455500001029577,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Perception Logging",
+      "passed": true,
+      "detail": "accepted_records=112",
+      "elapsed_ms": 0.2319999985047616,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Runtime Health",
+      "passed": true,
+      "detail": "all ten Engines healthy",
+      "elapsed_ms": 0.5992000005790032,
+      "timestamp": "2026-07-15T14:25:17"
+    },
+    {
+      "name": "Graceful Shutdown Ready",
+      "passed": true,
+      "detail": "reverse-order shutdown contracts composed",
+      "elapsed_ms": 0.6175999988045078,
+      "timestamp": "2026-07-15T14:25:17"
+    }
+  ],
+  "objects": [
+    {
+      "object_id": "user-object-ba3a90623716",
+      "name": "Verification Object",
+      "category": "test",
+      "type": "capture",
+      "material": "",
+      "color": "",
+      "weight": "",
+      "description": "v0.2.3",
+      "tags": [
+        "verification"
+      ],
+      "notes": "",
+      "created": "2026-07-15",
+      "aliases": [
+        "test object"
+      ],
+      "user_name": "Verification Object",
+      "ai_name": "",
+      "thumbnail": {
+        "x": 0,
+        "y": 0,
+        "width": 4,
+        "height": 4,
+        "channels": 3,
+        "pixel_format": "bgr8",
+        "pixels_hex": "00",
+        "frame_id": "v023-first:camera-observation:1"
+      },
+      "original_image": {
+        "x": 0,
+        "y": 0,
+        "width": 4,
+        "height": 4,
+        "channels": 3,
+        "pixel_format": "bgr8",
+        "pixels_hex": "00",
+        "frame_id": "v023-first:camera-observation:1"
+      },
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 4,
+        "height": 4,
+        "channels": 3,
+        "pixel_format": "bgr8",
+        "pixels_hex": "00",
+        "frame_id": "v023-first:camera-observation:1"
+      },
+      "descriptors": [
+        [
+          "geometry",
+          [
+            768.0,
+            112.0,
+            1.3333333333333333,
+            16.0,
+            12.0,
+            0.0
+          ]
+        ],
+        [
+          "appearance",
+          [
+            1.0,
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        ],
+        [
+          "scores",
+          [
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            1.0,
+            0.95
+          ]
+        ],
+        [
+          "motion_vector",
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        [
+          "color_histogram",
+          [
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333
+          ]
+        ]
+      ],
+      "recognition_history": [
+        {
+          "timestamp": "2026-07-15T14:25:16",
+          "confidence": 1.0,
+          "ai_name": null
+        },
+        {
+          "timestamp": "2026-07-15T14:25:16",
+          "confidence": 1.0,
+          "ai_name": null
+        },
+        {
+          "timestamp": "2026-07-15T14:25:16",
+          "confidence": 1.0,
+          "ai_name": null
+        },
+        {
+          "timestamp": "2026-07-15T14:25:16",
+          "confidence": 1.0,
+          "ai_name": null
+        },
+        {
+          "timestamp": "2026-07-15T14:25:17",
+          "confidence": 1.0,
+          "ai_name": null
+        },
+        {
+          "timestamp": "2026-07-15T14:25:17",
+          "confidence": 1.0,
+          "ai_name": null
+        },
+        {
+          "timestamp": "2026-07-15T14:25:17",
+          "confidence": 1.0,
+          "ai_name": null
+        },
+        {
+          "timestamp": "2026-07-15T14:25:17",
+          "confidence": 1.0,
+          "ai_name": null
+        }
+      ],
+      "times_seen": 9,
+      "average_confidence": 0.8888888888888888,
+      "last_seen": "2026-07-15T14:25:17",
+      "colors": "",
+      "histogram": [
+        0.16666666666666666,
+        0.08333333333333333,
+        0.16666666666666666,
+        0.08333333333333333,
+        0.16666666666666666,
+        0.08333333333333333,
+        0.16666666666666666,
+        0.08333333333333333
+      ],
+      "shape": [
+        768.0,
+        112.0,
+        1.3333333333333333,
+        16.0,
+        12.0,
+        0.0
+      ],
+      "texture": [
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "frames_seen": 9,
+      "relationships": [],
+      "recognition_statistics": {
+        "matches": 8,
+        "misses": 0
+      }
+    }
+  ],
+  "descriptors": [
+    {
+      "candidate_id": "proposal-1",
+      "features": [
+        {
+          "name": "geometry",
+          "values": [
+            768.0,
+            112.0,
+            1.3333333333333333,
+            16.0,
+            12.0,
+            0.0
+          ]
+        },
+        {
+          "name": "appearance",
+          "values": [
+            1.0,
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "scores",
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            1.0,
+            0.95
+          ]
+        },
+        {
+          "name": "motion_vector",
+          "values": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "color_histogram",
+          "values": [
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333
+          ]
+        }
+      ]
+    },
+    {
+      "candidate_id": "proposal-2",
+      "features": [
+        {
+          "name": "geometry",
+          "values": [
+            768.0,
+            112.0,
+            1.3333333333333333,
+            48.0,
+            12.0,
+            0.0
+          ]
+        },
+        {
+          "name": "appearance",
+          "values": [
+            1.0,
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "scores",
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            1.0,
+            0.95
+          ]
+        },
+        {
+          "name": "motion_vector",
+          "values": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "color_histogram",
+          "values": [
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666
+          ]
+        }
+      ]
+    },
+    {
+      "candidate_id": "proposal-3",
+      "features": [
+        {
+          "name": "geometry",
+          "values": [
+            768.0,
+            112.0,
+            1.3333333333333333,
+            16.0,
+            36.0,
+            0.0
+          ]
+        },
+        {
+          "name": "appearance",
+          "values": [
+            1.0,
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "scores",
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            1.0,
+            0.95
+          ]
+        },
+        {
+          "name": "motion_vector",
+          "values": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "color_histogram",
+          "values": [
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333
+          ]
+        }
+      ]
+    },
+    {
+      "candidate_id": "proposal-4",
+      "features": [
+        {
+          "name": "geometry",
+          "values": [
+            768.0,
+            112.0,
+            1.3333333333333333,
+            48.0,
+            36.0,
+            0.0
+          ]
+        },
+        {
+          "name": "appearance",
+          "values": [
+            1.0,
+            1.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "scores",
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            1.0,
+            0.95
+          ]
+        },
+        {
+          "name": "motion_vector",
+          "values": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "color_histogram",
+          "values": [
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666,
+            0.08333333333333333,
+            0.16666666666666666
+          ]
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "scene-object-000001:left_of:scene-object-000002",
+      "subject": "scene-object-000001",
+      "object": "scene-object-000002",
+      "type": "left_of"
+    },
+    {
+      "id": "scene-object-000001:near:scene-object-000002",
+      "subject": "scene-object-000001",
+      "object": "scene-object-000002",
+      "type": "near"
+    },
+    {
+      "id": "scene-object-000001:above:scene-object-000003",
+      "subject": "scene-object-000001",
+      "object": "scene-object-000003",
+      "type": "above"
+    },
+    {
+      "id": "scene-object-000001:near:scene-object-000003",
+      "subject": "scene-object-000001",
+      "object": "scene-object-000003",
+      "type": "near"
+    },
+    {
+      "id": "scene-object-000001:left_of:scene-object-000004",
+      "subject": "scene-object-000001",
+      "object": "scene-object-000004",
+      "type": "left_of"
+    },
+    {
+      "id": "scene-object-000001:above:scene-object-000004",
+      "subject": "scene-object-000001",
+      "object": "scene-object-000004",
+      "type": "above"
+    },
+    {
+      "id": "scene-object-000001:near:scene-object-000004",
+      "subject": "scene-object-000001",
+      "object": "scene-object-000004",
+      "type": "near"
+    },
+    {
+      "id": "scene-object-000002:right_of:scene-object-000001",
+      "subject": "scene-object-000002",
+      "object": "scene-object-000001",
+      "type": "right_of"
+    },
+    {
+      "id": "scene-object-000002:near:scene-object-000001",
+      "subject": "scene-object-000002",
+      "object": "scene-object-000001",
+      "type": "near"
+    },
+    {
+      "id": "scene-object-000002:right_of:scene-object-000003",
+      "subject": "scene-object-000002",
+      "object": "scene-object-000003",
+      "type": "right_of"
+    },
+    {
+      "id": "scene-object-000002:above:scene-object-000003",
+      "subject": "scene-object-000002",
+      "object": "scene-object-000003",
+      "type": "above"
+    },
+    {
+      "id": "scene-object-000002:near:scene-object-000003",
+      "subject": "scene-object-000002",
+      "object": "scene-object-000003",
+      "type": "near"
+    },
+    {
+      "id": "scene-object-000002:above:scene-object-000004",
+      "subject": "scene-object-000002",
+      "object": "scene-object-000004",
+      "type": "above"
+    },
+    {
+      "id": "scene-object-000002:near:scene-object-000004",
+      "subject": "scene-object-000002",
+      "object": "scene-object-000004",
+      "type": "near"
+    },
+    {
+      "id": "scene-object-000003:below:scene-object-000001",
+      "subject": "scene-object-000003",
+      "object": "scene-object-000001",
+      "type": "below"
+    },
+    {
+      "id": "scene-object-000003:near:scene-object-000001",
+      "subject": "scene-object-000003",
+      "object": "scene-object-000001",
+      "type": "near"
+    },
+    {
+      "id": "scene-object-000003:left_of:scene-object-000002",
+      "subject": "scene-object-000003",
+      "object": "scene-object-000002",
+      "type": "left_of"
+    },
+    {
+      "id": "scene-object-000003:below:scene-object-000002",
+      "subject": "scene-object-000003",
+      "object": "scene-object-000002",
+      "type": "below"
+    },
+    {
+      "id": "scene-object-000003:near:scene-object-000002",
+      "subject": "scene-object-000003",
+      "object": "scene-object-000002",
+      "type": "near"
+    },
+    {
+      "id": "scene-object-000003:left_of:scene-object-000004",
+      "subject": "scene-object-000003",
+      "object": "scene-object-000004",
+      "type": "left_of"
+    },
+    {
+      "id": "scene-object-000003:near:scene-object-000004",
+      "subject": "scene-object-000003",
+      "object": "scene-object-000004",
+      "type": "near"
+    },
+    {
+      "id": "scene-object-000004:right_of:scene-object-000001",
+      "subject": "scene-object-000004",
+      "object": "scene-object-000001",
+      "type": "right_of"
+    },
+    {
+      "id": "scene-object-000004:below:scene-object-000001",
+      "subject": "scene-object-000004",
+      "object": "scene-object-000001",
+      "type": "below"
+    },
+    {
+      "id": "scene-object-000004:near:scene-object-000001",
+      "subject": "scene-object-000004",
+      "object": "scene-object-000001",
+      "type": "near"
+    },
+    {
+      "id": "scene-object-000004:below:scene-object-000002",
+      "subject": "scene-object-000004",
+      "object": "scene-object-000002",
+      "type": "below"
+    },
+    {
+      "id": "scene-object-000004:near:scene-object-000002",
+      "subject": "scene-object-000004",
+      "object": "scene-object-000002",
+      "type": "near"
+    },
+    {
+      "id": "scene-object-000004:right_of:scene-object-000003",
+      "subject": "scene-object-000004",
+      "object": "scene-object-000003",
+      "type": "right_of"
+    },
+    {
+      "id": "scene-object-000004:near:scene-object-000003",
+      "subject": "scene-object-000004",
+      "object": "scene-object-000003",
+      "type": "near"
+    }
+  ],
+  "current_snapshot": {
+    "frame_id": "v023-validation:camera-observation:3",
+    "object_count": 4,
+    "relationship_count": 28,
+    "health": "healthy"
+  },
+  "memory_statistics": {
+    "stored_objects": 1,
+    "state": "ready"
+  },
+  "performance": {
+    "latest_pipeline_ms": 16.39699999941513,
+    "vision_ms": 11.858300000312738
+  },
+  "last_five_minutes": [
+    {
+      "timestamp": "2026-07-15T08:55:07.194895+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 95.3125,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:08.210161+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:09.226773+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:10.236430+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 98.4375,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:11.238308+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:12.254275+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:13.286459+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:14.299504+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:14.762067+00:00",
+      "category": "pipeline",
+      "action": "capture",
+      "status": "succeeded",
+      "details": {
+        "elapsed_ms": 8060.7726000016555,
+        "error_stage": null,
+        "detections": 4,
+        "tracked": 4
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:14.763199+00:00",
+      "category": "object",
+      "action": "created",
+      "status": "succeeded",
+      "details": {
+        "object_id": "user-object-ba3a90623716",
+        "name": "Verification Object"
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:15.306374+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:16.224030+00:00",
+      "category": "pipeline",
+      "action": "capture",
+      "status": "succeeded",
+      "details": {
+        "elapsed_ms": 1460.5516999981774,
+        "error_stage": null,
+        "detections": 4,
+        "tracked": 4
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:16.317396+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:17.341246+00:00",
+      "category": "pipeline",
+      "action": "capture",
+      "status": "succeeded",
+      "details": {
+        "elapsed_ms": 16.39699999941513,
+        "error_stage": null,
+        "detections": 4,
+        "tracked": 4
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:17.342025+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 62.5,
+        "process_memory_bytes": 0
+      }
+    }
+  ],
+  "recent_events": [
+    {
+      "timestamp": "2026-07-15T08:55:07.194895+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 95.3125,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:08.210161+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:09.226773+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:10.236430+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 98.4375,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:11.238308+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:12.254275+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:13.286459+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:14.299504+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:14.762067+00:00",
+      "category": "pipeline",
+      "action": "capture",
+      "status": "succeeded",
+      "details": {
+        "elapsed_ms": 8060.7726000016555,
+        "error_stage": null,
+        "detections": 4,
+        "tracked": 4
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:14.763199+00:00",
+      "category": "object",
+      "action": "created",
+      "status": "succeeded",
+      "details": {
+        "object_id": "user-object-ba3a90623716",
+        "name": "Verification Object"
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:15.306374+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:16.224030+00:00",
+      "category": "pipeline",
+      "action": "capture",
+      "status": "succeeded",
+      "details": {
+        "elapsed_ms": 1460.5516999981774,
+        "error_stage": null,
+        "detections": 4,
+        "tracked": 4
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:16.317396+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 100.0,
+        "process_memory_bytes": 0
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:17.341246+00:00",
+      "category": "pipeline",
+      "action": "capture",
+      "status": "succeeded",
+      "details": {
+        "elapsed_ms": 16.39699999941513,
+        "error_stage": null,
+        "detections": 4,
+        "tracked": 4
+      }
+    },
+    {
+      "timestamp": "2026-07-15T08:55:17.342025+00:00",
+      "category": "monitor",
+      "action": "sample",
+      "status": "succeeded",
+      "details": {
+        "cpu_percent": 62.5,
+        "process_memory_bytes": 0
+      }
+    }
+  ],
+  "logs": [
+    {
+      "sequence": 1,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-001",
+      "category": "lifecycle",
+      "message": "Bootstrap transitioning from created to validating",
+      "metadata": {
+        "source": "created",
+        "target": "validating"
+      }
+    },
+    {
+      "sequence": 2,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-001",
+      "category": "lifecycle",
+      "message": "Bootstrap transitioning from validating to loading",
+      "metadata": {
+        "source": "validating",
+        "target": "loading"
+      }
+    },
+    {
+      "sequence": 3,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-001",
+      "category": "lifecycle",
+      "message": "Bootstrap transitioning from loading to initializing",
+      "metadata": {
+        "source": "loading",
+        "target": "initializing"
+      }
+    },
+    {
+      "sequence": 4,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-001",
+      "category": "lifecycle",
+      "message": "Bootstrap transitioning from initializing to ready",
+      "metadata": {
+        "source": "initializing",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 5,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-001",
+      "category": "lifecycle",
+      "message": "Bootstrap runtime is ready",
+      "metadata": {
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 6,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-002",
+      "category": "lifecycle",
+      "message": "Kernel transitioning from created to starting",
+      "metadata": {
+        "source": "created",
+        "target": "starting"
+      }
+    },
+    {
+      "sequence": 7,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-002",
+      "category": "lifecycle",
+      "message": "Kernel transitioning from starting to running",
+      "metadata": {
+        "source": "starting",
+        "target": "running"
+      }
+    },
+    {
+      "sequence": 8,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-003",
+      "category": "lifecycle",
+      "message": "Configuration transitioning from unloaded to loading",
+      "metadata": {
+        "source": "unloaded",
+        "target": "loading"
+      }
+    },
+    {
+      "sequence": 9,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-003",
+      "category": "lifecycle",
+      "message": "Configuration transitioning from loading to validating",
+      "metadata": {
+        "source": "loading",
+        "target": "validating"
+      }
+    },
+    {
+      "sequence": 10,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-003",
+      "category": "lifecycle",
+      "message": "Configuration transitioning from validating to available",
+      "metadata": {
+        "source": "validating",
+        "target": "available"
+      }
+    },
+    {
+      "sequence": 11,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-003",
+      "category": "operation_outcome",
+      "message": "Configuration request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "available"
+      }
+    },
+    {
+      "sequence": 12,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "lifecycle",
+      "message": "Registry transitioning from empty to accepting_registrations",
+      "metadata": {
+        "source": "empty",
+        "target": "accepting_registrations"
+      }
+    },
+    {
+      "sequence": 13,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "operation_outcome",
+      "message": "Registry request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "accepting_registrations"
+      }
+    },
+    {
+      "sequence": 14,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "operation_outcome",
+      "message": "Registry request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "accepting_registrations"
+      }
+    },
+    {
+      "sequence": 15,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "operation_outcome",
+      "message": "Registry request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "accepting_registrations"
+      }
+    },
+    {
+      "sequence": 16,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "operation_outcome",
+      "message": "Registry request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "accepting_registrations"
+      }
+    },
+    {
+      "sequence": 17,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "operation_outcome",
+      "message": "Registry request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "accepting_registrations"
+      }
+    },
+    {
+      "sequence": 18,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "operation_outcome",
+      "message": "Registry request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "accepting_registrations"
+      }
+    },
+    {
+      "sequence": 19,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "operation_outcome",
+      "message": "Registry request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "accepting_registrations"
+      }
+    },
+    {
+      "sequence": 20,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "operation_outcome",
+      "message": "Registry request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "accepting_registrations"
+      }
+    },
+    {
+      "sequence": 21,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "operation_outcome",
+      "message": "Registry request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "accepting_registrations"
+      }
+    },
+    {
+      "sequence": 22,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "operation_outcome",
+      "message": "Registry request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "accepting_registrations"
+      }
+    },
+    {
+      "sequence": 23,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "operation_outcome",
+      "message": "Registry request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "accepting_registrations"
+      }
+    },
+    {
+      "sequence": 24,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "lifecycle",
+      "message": "Registry transitioning from accepting_registrations to ready",
+      "metadata": {
+        "source": "accepting_registrations",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 25,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "operation_outcome",
+      "message": "Registry request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 26,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-005",
+      "category": "lifecycle",
+      "message": "Event Bus transitioning from created to starting",
+      "metadata": {
+        "source": "created",
+        "target": "starting"
+      }
+    },
+    {
+      "sequence": 27,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-005",
+      "category": "lifecycle",
+      "message": "Event Bus transitioning from starting to accepting_events",
+      "metadata": {
+        "source": "starting",
+        "target": "accepting_events"
+      }
+    },
+    {
+      "sequence": 28,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-005",
+      "category": "operation_outcome",
+      "message": "Event Bus request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "accepting_events"
+      }
+    },
+    {
+      "sequence": 29,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from created to ready",
+      "metadata": {
+        "source": "created",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 30,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 31,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from ready to active",
+      "metadata": {
+        "source": "ready",
+        "target": "active"
+      }
+    },
+    {
+      "sequence": 32,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from active to ready",
+      "metadata": {
+        "source": "active",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 33,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 34,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-008",
+      "category": "lifecycle",
+      "message": "Camera transitioning from closed to opening",
+      "metadata": {
+        "source": "closed",
+        "target": "opening"
+      }
+    },
+    {
+      "sequence": 35,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-008",
+      "category": "lifecycle",
+      "message": "Camera transitioning from opening to ready",
+      "metadata": {
+        "source": "opening",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 36,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-008",
+      "category": "operation_outcome",
+      "message": "Camera request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 37,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-009",
+      "category": "vision.operation",
+      "message": "succeeded",
+      "metadata": {
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 38,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-010",
+      "category": "scene.operation",
+      "message": "succeeded",
+      "metadata": {
+        "state": "active"
+      }
+    },
+    {
+      "sequence": 39,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-008",
+      "category": "lifecycle",
+      "message": "Camera transitioning from ready to capturing",
+      "metadata": {
+        "source": "ready",
+        "target": "capturing"
+      }
+    },
+    {
+      "sequence": 40,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-008",
+      "category": "lifecycle",
+      "message": "Camera transitioning from capturing to ready",
+      "metadata": {
+        "source": "capturing",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 41,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-008",
+      "category": "operation_outcome",
+      "message": "Camera request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 42,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 43,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 44,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 45,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 46,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-009",
+      "category": "vision.operation",
+      "message": "succeeded",
+      "metadata": {
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 47,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-010",
+      "category": "scene.operation",
+      "message": "succeeded",
+      "metadata": {
+        "state": "active"
+      }
+    },
+    {
+      "sequence": 48,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 49,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from ready to active",
+      "metadata": {
+        "source": "ready",
+        "target": "active"
+      }
+    },
+    {
+      "sequence": 50,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from active to ready",
+      "metadata": {
+        "source": "active",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 51,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 52,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 53,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-008",
+      "category": "lifecycle",
+      "message": "Camera transitioning from ready to capturing",
+      "metadata": {
+        "source": "ready",
+        "target": "capturing"
+      }
+    },
+    {
+      "sequence": 54,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-008",
+      "category": "lifecycle",
+      "message": "Camera transitioning from capturing to ready",
+      "metadata": {
+        "source": "capturing",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 55,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-008",
+      "category": "operation_outcome",
+      "message": "Camera request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 56,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 57,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 58,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from ready to active",
+      "metadata": {
+        "source": "ready",
+        "target": "active"
+      }
+    },
+    {
+      "sequence": 59,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from active to ready",
+      "metadata": {
+        "source": "active",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 60,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 61,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 62,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 63,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 64,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from ready to active",
+      "metadata": {
+        "source": "ready",
+        "target": "active"
+      }
+    },
+    {
+      "sequence": 65,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from active to ready",
+      "metadata": {
+        "source": "active",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 66,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 67,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 68,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 69,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 70,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from ready to active",
+      "metadata": {
+        "source": "ready",
+        "target": "active"
+      }
+    },
+    {
+      "sequence": 71,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from active to ready",
+      "metadata": {
+        "source": "active",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 72,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 73,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 74,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 75,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 76,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from ready to active",
+      "metadata": {
+        "source": "ready",
+        "target": "active"
+      }
+    },
+    {
+      "sequence": 77,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from active to ready",
+      "metadata": {
+        "source": "active",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 78,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 79,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 80,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-009",
+      "category": "vision.operation",
+      "message": "succeeded",
+      "metadata": {
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 81,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-010",
+      "category": "scene.operation",
+      "message": "succeeded",
+      "metadata": {
+        "state": "active"
+      }
+    },
+    {
+      "sequence": 82,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-004",
+      "category": "operation_outcome",
+      "message": "Registry request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 83,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-008",
+      "category": "operation_outcome",
+      "message": "Camera request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 84,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-008",
+      "category": "lifecycle",
+      "message": "Camera transitioning from ready to capturing",
+      "metadata": {
+        "source": "ready",
+        "target": "capturing"
+      }
+    },
+    {
+      "sequence": 85,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-008",
+      "category": "lifecycle",
+      "message": "Camera transitioning from capturing to ready",
+      "metadata": {
+        "source": "capturing",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 86,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-008",
+      "category": "operation_outcome",
+      "message": "Camera request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 87,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 88,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 89,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from ready to active",
+      "metadata": {
+        "source": "ready",
+        "target": "active"
+      }
+    },
+    {
+      "sequence": 90,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from active to ready",
+      "metadata": {
+        "source": "active",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 91,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 92,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 93,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 94,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 95,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from ready to active",
+      "metadata": {
+        "source": "ready",
+        "target": "active"
+      }
+    },
+    {
+      "sequence": 96,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from active to ready",
+      "metadata": {
+        "source": "active",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 97,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 98,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 99,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 100,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 101,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from ready to active",
+      "metadata": {
+        "source": "ready",
+        "target": "active"
+      }
+    },
+    {
+      "sequence": 102,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from active to ready",
+      "metadata": {
+        "source": "active",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 103,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 104,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 105,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 106,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 107,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from ready to active",
+      "metadata": {
+        "source": "ready",
+        "target": "active"
+      }
+    },
+    {
+      "sequence": 108,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "lifecycle",
+      "message": "Memory transitioning from active to ready",
+      "metadata": {
+        "source": "active",
+        "target": "ready"
+      }
+    },
+    {
+      "sequence": 109,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 110,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-006",
+      "category": "operation_outcome",
+      "message": "Memory request completed with status succeeded",
+      "metadata": {
+        "status": "succeeded",
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 111,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-009",
+      "category": "vision.operation",
+      "message": "succeeded",
+      "metadata": {
+        "state": "ready"
+      }
+    },
+    {
+      "sequence": 112,
+      "timestamp": null,
+      "severity": "info",
+      "source": "ENG-010",
+      "category": "scene.operation",
+      "message": "succeeded",
+      "metadata": {
+        "state": "active"
+      }
+    }
+  ],
+  "exceptions": [],
+  "warnings": [],
+  "configuration": {
+    "camera_provider": "mock",
+    "resolution": [
+      64,
+      48
+    ],
+    "fps_target": 10
+  },
+  "models": [
+    {
+      "model_id": "yolo11m",
+      "path": "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Models\\yolo11m.pt",
+      "installed": true,
+      "checksum_valid": true,
+      "runtime_available": true,
+      "provider": "ultralytics",
+      "size_bytes": 40684120
+    },
+    {
+      "model_id": "yolo11n",
+      "path": "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Models\\yolo11n.pt",
+      "installed": true,
+      "checksum_valid": true,
+      "runtime_available": true,
+      "provider": "ultralytics",
+      "size_bytes": 5613764
+    },
+    {
+      "model_id": "yolo11s",
+      "path": "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Models\\yolo11s.pt",
+      "installed": true,
+      "checksum_valid": true,
+      "runtime_available": true,
+      "provider": "ultralytics",
+      "size_bytes": 19313732
+    }
+  ]
+}

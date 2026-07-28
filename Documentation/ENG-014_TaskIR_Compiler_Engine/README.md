@@ -9,4 +9,4 @@ Authoritative documentation location for ENG-014.
 - Source: ../../Implementation/ENG-014_TaskIR_Compiler_Engine/Source/
 - Tests: ../../Tests/ENG-014_TaskIR_Compiler_Engine/
 
-No implementation documentation exists yet.
+Implementation is complete and remains a pure, deterministic compiler. See the repository-root `TaskIRCompiler_Architecture.md`, `TaskIRCompiler_DataFlow.md`, `TaskIRCompiler_API.md`, `TaskIRCompiler_TestPlan.md`, `TaskIRCompiler_Schema.md`, and `TaskIRCompilationPipeline.md` for synchronized documentation.

@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "schema_version": "1.0",
+  "generated_at": "2026-07-28T03:53:22.274620+00:00",
+  "records": [
+    {
+      "knowledge_id": "knowledge:user-object-32468f735f2d",
+      "object_id": "user-object-32468f735f2d",
+      "object_name": "Spoon",
+      "category": "Detected Objects",
+      "summary": "Spoon — Detected Objects. Semantic object generated from 42 detected frames.",
+      "properties": {
+        "category": "Detected Objects",
+        "semantic_version": "1.0",
+        "tags": []
+      },
+      "facts": [
+        {
+          "predicate": "description",
+          "value": "Semantic object generated from 42 detected frames.",
+          "source": "semantic_inventory"
+        },
+        {
+          "predicate": "aliases",
+          "value": [
+            "fork"
+          ],
+          "source": "semantic_inventory"
+        }
+      ],
+      "attributes": {
+        "user_name": "Spoon",
+        "ai_name": "",
+        "times_seen": 1,
+        "recognition_statistics": {
+          "matches": 0,
+          "misses": 0
+        }
+      },
+      "typical_uses": [],
+      "materials": [],
+      "environment": {},
+      "confidence": 0.8060298036961329,
+      "knowledge_sources": [
+        "semantic_inventory",
+        "user-object-32468f735f2d"
+      ],
+      "relationships": [],
+      "metadata": {
+        "semantic_score": 0.825142,
+        "semantic_record_version": "1.0"
+      },
+      "version": "1.0.0",
+      "schema_version": "1.0",
+      "engine_version": "1.0.0",
+      "created": "2026-07-21T11:35:40",
+      "updated": "2026-07-21T11:36:45",
+      "checksum": "08222a0bf2f1c356b3eea265ead9c087669ca98453ee538b3486e4ef6e779ef2"
+    }
+  ],
+  "statistics": {
+    "total_records": 1,
+    "categories": {
+      "Detected Objects": 1
+    },
+    "properties": {
+      "category": 1,
+      "semantic_version": 1,
+      "tags": 1
+    },
+    "facts": 2,
+    "relationships": 0,
+    "average_confidence": 0.8060298036961329
+  }
+}

@@ -9,4 +9,4 @@ Authoritative documentation location for ENG-016.
 - Source: ../../Implementation/ENG-016_Explainability_Engine/Source/
 - Tests: ../../Tests/ENG-016_Explainability_Engine/
 
-No implementation documentation exists yet.
+Implementation is complete as a deterministic, read-only observer. See the repository-root Explainability architecture, data-flow, API, test-plan, model, DecisionTrace, and DependencyTrace documents.

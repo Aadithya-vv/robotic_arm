@@ -11,15 +11,15 @@ No Engine is implemented and no tests have been generated.
 | ENG-005 | Implementation Ready | Implementation Ready | Implemented | 32 Passing | Ready for Architect Review | Not Frozen |
 | ENG-006 | Implementation Ready | Implementation Ready | Implemented | 30 Passing | Ready for Architect Review | Not Frozen |
 | ENG-007 | Implementation Ready | Implementation Ready | Implemented | 33 Passing | Ready for Architect Review | Not Frozen |
-| ENG-008 | Implementation Ready | Implementation Ready | Not Implemented | No Tests | Template | Not Frozen |
-| ENG-009 | Implementation Ready | Implementation Ready | Not Implemented | No Tests | Template | Not Frozen |
-| ENG-010 | Implementation Ready | Implementation Ready | Not Implemented | No Tests | Template | Not Frozen |
-| ENG-011 | Implementation Ready | Implementation Ready | Not Implemented | No Tests | Template | Not Frozen |
-| ENG-012 | Implementation Ready | Implementation Ready | Not Implemented | No Tests | Template | Not Frozen |
-| ENG-013 | Implementation Ready | Implementation Ready | Not Implemented | No Tests | Template | Not Frozen |
-| ENG-014 | Implementation Ready | Implementation Ready | Not Implemented | No Tests | Template | Not Frozen |
-| ENG-015 | Implementation Ready | Implementation Ready | Not Implemented | No Tests | Template | Not Frozen |
-| ENG-016 | Implementation Ready | Implementation Ready | Not Implemented | No Tests | Template | Not Frozen |
+| ENG-008 | Implementation Ready | Implementation Ready | Implemented | 37 Passing | Ready for Architect Review | Not Frozen |
+| ENG-009 | Implementation Ready | Implementation Ready | Implemented | 40 Passing | Ready for Architect Review | Not Frozen |
+| ENG-010 | Implementation Ready | Implementation Ready | Implemented | 53 Passing | Ready for Architect Review | Not Frozen |
+| ENG-011 | Implementation Ready | Implementation Ready | Implemented | 23 isolated + integration/regression | Complete | Awaiting Architecture Review |
+| ENG-012 | Implementation Ready | Implementation Ready | Implemented | 30 isolated + integration/regression | Complete | Awaiting Architecture Review |
+| ENG-013 | Implementation Ready | Implementation Ready | Implemented | 27 isolated + integration/regression | Complete | Awaiting Architecture Review |
+| ENG-014 | Implementation Ready | Implementation Ready | Implemented | Isolated + integration/regression suite | Complete | Awaiting Architecture Review |
+| ENG-015 | Implementation Ready | Implementation Ready | Implemented | Isolated + integration/regression suite | Complete | Awaiting Architecture Review |
+| ENG-016 | Implementation Ready | Implementation Ready | Implemented | Isolated + integration/regression suite | Complete | Awaiting Architecture Review |
 | ENG-017 | Implementation Ready | Implementation Ready | Not Implemented | No Tests | Template | Not Frozen |
 | ENG-018 | Implementation Ready | Implementation Ready | Not Implemented | No Tests | Template | Not Frozen |
 | ENG-019 | Implementation Ready | Implementation Ready | Not Implemented | No Tests | Template | Not Frozen |

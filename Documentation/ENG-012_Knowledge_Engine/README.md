@@ -9,4 +9,9 @@ Authoritative documentation location for ENG-012.
 - Source: ../../Implementation/ENG-012_Knowledge_Engine/Source/
 - Tests: ../../Tests/ENG-012_Knowledge_Engine/
 
-No implementation documentation exists yet.
+- [Architecture](KnowledgeEngine_Architecture.md)
+- [Data Flow](KnowledgeEngine_DataFlow.md)
+- [API](KnowledgeEngine_API.md)
+- [Test Plan](KnowledgeEngine_TestPlan.md)
+
+Implemented in TaskGraph v1.2 as an immutable, checksummed, searchable, derived Knowledge Graph.

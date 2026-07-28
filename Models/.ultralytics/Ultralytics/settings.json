@@ -1,0 +1,21 @@
+{
+  "settings_version": "0.0.6",
+  "datasets_dir": "C:\\Users\\aadit\\OneDrive\\Desktop\\datasets",
+  "weights_dir": "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\weights",
+  "runs_dir": "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\runs",
+  "uuid": "45c5af553ac8639767f036c38da435a75c2424397b2a33d975d9ed18bb005c4e",
+  "sync": true,
+  "api_key": "",
+  "openai_api_key": "",
+  "clearml": true,
+  "comet": true,
+  "dvc": true,
+  "hub": true,
+  "mlflow": true,
+  "neptune": true,
+  "raytune": true,
+  "tensorboard": false,
+  "wandb": false,
+  "vscode_msg": true,
+  "openvino_msg": true
+}

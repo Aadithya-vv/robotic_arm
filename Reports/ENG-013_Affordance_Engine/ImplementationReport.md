@@ -1,35 +1,12 @@
-# ENG-013 - Affordance Engine Implementation Report
+# ENG-013 Affordance Engine Implementation Report
 
-| Field | Value |
+| Status | Implemented — Awaiting Architecture Review |
 |---|---|
-| Status | Implementation Ready — Not Implemented |
-| Specification | Specifications/ENG-013_Affordance_Engine/Specification.md |
-| Framework Prompt | Prompts/ENG-013_Affordance_Engine/FrameworkPrompt.md |
+| Contract | `taskgraph.affordance` 1.0.0 |
+| Rule catalog | 1.0.0 |
 
-## Work Completed
+ENG-013 implements immutable, checksummed, robot-independent Affordance Records through seven explicit exact-match rules. It consumes ENG-012 only through a Composition Root adapter/public contract, owns atomic `affordance_graph.json`, and provides read-only lookup/search/actions/statistics/export/integrity services. No ML, LLM, heuristic, intent, planning, motion, or upstream storage access exists.
 
-Not implemented.
+Validation: 27/27 ENG-013 tests, 396 ENG-001–013 tests, and 5/5 launcher/session tests pass. Thirteen Engines report healthy; Affordance routes return 200; Python/TypeScript, ESLint (zero errors, one pre-existing warning), and Vite production build pass. Freeze is recommended after architecture review.
 
-## Files Created or Modified
-
-To be completed during authorized implementation.
-
-## Public Interfaces
-
-Not implemented.
-
-## Tests and Results
-
-No tests generated or executed during Repository Generation.
-
-## Contract Compliance and Limitations
-
-Pending implementation and review. The Engine is not implemented.
-
-## Recommendations
-
-To be completed after implementation.
-
-## Review and Freeze Status
-
-Ready for engineering; awaiting implementation, testing, documentation synchronization, report completion, and architect review.
+See [complete milestone report](../../TaskGraph_v1.2_Engine013_AffordanceEngine_Report.md).

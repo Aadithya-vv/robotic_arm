@@ -1,0 +1,3 @@
+# Framework Prompt — ENG-016 Explainability Engine
+
+Maintain only ENG-016 under DependencyMap, Shared Contracts, TaskIR Contract, ABP, GBP, and Rule 40. Consume read-only public artifact projections through injected contracts. Deterministically aggregate and expose only facts already present in validated artifacts. Never use AI, inference, prediction, planning, compilation, execution, simulation, robot control, or natural-language generation; never mutate upstream state. Preserve identity, provenance, rules, dependencies, decisions, versions, checksums, validation, and compilation facts. Validate before atomic explanation-only storage. Keep contracts immutable, serializable, traceable, thread-safe, tested, documented, and backward compatible.
