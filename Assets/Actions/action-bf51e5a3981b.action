@@ -1,0 +1,180 @@
+{
+  "version": 1,
+  "id": "action-bf51e5a3981b",
+  "name": "Bottle moving",
+  "description": "",
+  "category": "Robot Task",
+  "estimatedDuration": 5.0,
+  "previewVideo": "/action-assets/action-bf51e5a3981b/preview.webm",
+  "tags": [],
+  "createdAt": "2026-07-29T09:01:49",
+  "updatedAt": "2026-07-29T09:01:49",
+  "referencedObjects": [
+    "user-object-32468f735f2d",
+    "user-object-6e6485599b8c"
+  ],
+  "scene_objects": [
+    {
+      "id": "scene-user-object-32468f735f2d-1784698429212",
+      "objectId": "user-object-32468f735f2d",
+      "position": [
+        2.5092621540972333,
+        1.3872975051405776
+      ],
+      "rotationAngle": 0.0
+    },
+    {
+      "id": "scene-user-object-32468f735f2d-1785215142103",
+      "objectId": "user-object-32468f735f2d",
+      "position": [
+        2.5092621540972333,
+        1.3872975051405776
+      ],
+      "rotationAngle": 0.0
+    },
+    {
+      "id": "scene-user-object-6e6485599b8c-1785295456271",
+      "objectId": "user-object-6e6485599b8c",
+      "position": [
+        2.790283282266259,
+        1.7990869176442836
+      ],
+      "rotationAngle": 0.0
+    }
+  ],
+  "keyframes": [
+    {
+      "timestamp": 0.2,
+      "objectId": "user-object-32468f735f2d",
+      "positionX": -2.8217406539252314,
+      "positionY": 1.4337901278742216,
+      "rotationAngle": 0.0
+    },
+    {
+      "timestamp": 0.4,
+      "objectId": "user-object-32468f735f2d",
+      "positionX": -1.7689618316946536,
+      "positionY": 1.4470734448118,
+      "rotationAngle": 0.0
+    },
+    {
+      "timestamp": 0.7,
+      "objectId": "user-object-32468f735f2d",
+      "positionX": -0.8210416083328669,
+      "positionY": 1.4869239023505947,
+      "rotationAngle": 105.0
+    },
+    {
+      "timestamp": 1.3,
+      "objectId": "user-object-32468f735f2d",
+      "positionX": -0.8210416083328669,
+      "positionY": 1.4869239023505947,
+      "rotationAngle": 105.0
+    },
+    {
+      "timestamp": 1.75,
+      "objectId": "user-object-32468f735f2d",
+      "positionX": -0.4393569548556391,
+      "positionY": -1.9867164296993918,
+      "rotationAngle": 105.0
+    },
+    {
+      "timestamp": 2.35,
+      "objectId": "user-object-32468f735f2d",
+      "positionX": 1.5571476571812575,
+      "positionY": -2.0,
+      "rotationAngle": 105.0
+    },
+    {
+      "timestamp": 3.15,
+      "objectId": "user-object-32468f735f2d",
+      "positionX": 2.5092621540972333,
+      "positionY": 1.3872975051405776,
+      "rotationAngle": 105.0
+    },
+    {
+      "timestamp": 3.7,
+      "objectId": "user-object-32468f735f2d",
+      "positionX": 2.5092621540972333,
+      "positionY": 1.3872975051405776,
+      "rotationAngle": 0.0
+    },
+    {
+      "timestamp": 0.5,
+      "objectId": "user-object-32468f735f2d",
+      "positionX": -1.7689618316946536,
+      "positionY": 1.4470734448118,
+      "rotationAngle": 0.0
+    },
+    {
+      "timestamp": 0.2,
+      "objectId": "user-object-6e6485599b8c",
+      "positionX": -2.96015392123137,
+      "positionY": 1.6662517213642611,
+      "rotationAngle": 0.0
+    },
+    {
+      "timestamp": 0.4,
+      "objectId": "user-object-6e6485599b8c",
+      "positionX": -1.8486543092344738,
+      "positionY": 1.3540887060705717,
+      "rotationAngle": 0.0
+    },
+    {
+      "timestamp": 0.6,
+      "objectId": "user-object-6e6485599b8c",
+      "positionX": -0.6155190041520333,
+      "positionY": 1.022000715370515,
+      "rotationAngle": 0.0
+    },
+    {
+      "timestamp": 1.05,
+      "objectId": "user-object-6e6485599b8c",
+      "positionX": -0.8713738509908078,
+      "positionY": -1.1897052520192557,
+      "rotationAngle": 0.0
+    },
+    {
+      "timestamp": 1.35,
+      "objectId": "user-object-6e6485599b8c",
+      "positionX": -0.8713738509908078,
+      "positionY": -1.1897052520192557,
+      "rotationAngle": -330.0
+    },
+    {
+      "timestamp": 1.95,
+      "objectId": "user-object-32468f735f2d",
+      "positionX": -1.4879413435307483,
+      "positionY": 1.307596590062988,
+      "rotationAngle": 105.0
+    },
+    {
+      "timestamp": 2.35,
+      "objectId": "user-object-6e6485599b8c",
+      "positionX": 0.6092277538220308,
+      "positionY": -1.1697800232498583,
+      "rotationAngle": -330.0
+    },
+    {
+      "timestamp": 2.85,
+      "objectId": "user-object-6e6485599b8c",
+      "positionX": 2.995805566444532,
+      "positionY": 1.06185142627234,
+      "rotationAngle": -15.0
+    },
+    {
+      "timestamp": 3.25,
+      "objectId": "user-object-6e6485599b8c",
+      "positionX": 2.995805566444532,
+      "positionY": 1.06185142627234,
+      "rotationAngle": 0.0
+    },
+    {
+      "timestamp": 3.75,
+      "objectId": "user-object-6e6485599b8c",
+      "positionX": 2.790283282266259,
+      "positionY": 1.7990869176442836,
+      "rotationAngle": 0.0
+    }
+  ]
+}

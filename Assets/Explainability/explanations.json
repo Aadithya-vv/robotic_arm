@@ -3,11 +3,90 @@
   "records": [
     {
       "affordance_id": "",
-      "artifact_id": "user-object-32468f735f2d",
-      "artifact_type": "semantic_inventory",
-      "checksum": "b9c6b8f23647bdf92d71c13bce2cff1237434194d836bcee8919cfaaa6371fdb",
+      "artifact_id": "knowledge:user-object-b16a68a8029f",
+      "artifact_type": "knowledge",
+      "checksum": "bf9dce366cd5f1d0ee38472934a0a19788e9000d179b71976f092bc247cb1a1f",
       "checksums": {
-        "user-object-32468f735f2d": ""
+        "knowledge:user-object-b16a68a8029f": "62c4019f877193b9b4b703cf51533ed68c222272ce5bbc593c6fb337a0f682fe"
+      },
+      "compilation": null,
+      "creation_time": "2026-07-28T12:57:16",
+      "decision_trace": {
+        "facts": [],
+        "ordered_actions": [],
+        "planning_rule_id": "",
+        "semantic_plan_id": ""
+      },
+      "dependency_trace": {
+        "dependency_chain": [
+          "knowledge:user-object-b16a68a8029f"
+        ],
+        "nodes": [
+          {
+            "artifact": {
+              "artifact_id": "knowledge:user-object-b16a68a8029f",
+              "artifact_type": "knowledge",
+              "checksum": "62c4019f877193b9b4b703cf51533ed68c222272ce5bbc593c6fb337a0f682fe",
+              "schema_version": "1.0",
+              "source_engine": {
+                "engine_id": "ENG-012",
+                "version": "1.0.0"
+              }
+            },
+            "dependencies": [
+              "knowledge:user-object-b16a68a8029f"
+            ],
+            "label": "knowledge:user-object-b16a68a8029f",
+            "node_id": "explain-node:001"
+          }
+        ]
+      },
+      "engine_version": "1.0.0",
+      "explanation_id": "explanation:1a4b6b6dd708e3487adf7710",
+      "knowledge_id": "knowledge:user-object-b16a68a8029f",
+      "metadata": {
+        "attributes": {
+          "source_schema": "1.0"
+        },
+        "correlation_id": "web-startup",
+        "source_versions": {
+          "ENG-012": "1.0.0"
+        }
+      },
+      "planning_rule_id": "",
+      "provenance": {
+        "artifact_id": "knowledge:user-object-b16a68a8029f",
+        "checksums": {
+          "knowledge:user-object-b16a68a8029f": "62c4019f877193b9b4b703cf51533ed68c222272ce5bbc593c6fb337a0f682fe"
+        },
+        "source_references": []
+      },
+      "rule": {
+        "declared_actions": [],
+        "rule_id": "",
+        "rule_version": ""
+      },
+      "schema_version": "1.0",
+      "semantic_plan_id": "",
+      "source_engine": {
+        "engine_id": "ENG-012",
+        "version": "1.0.0"
+      },
+      "source_version": "1.0.0",
+      "task_ir_id": "",
+      "validation": {
+        "errors": [],
+        "valid": true,
+        "warnings": []
+      }
+    },
+    {
+      "affordance_id": "",
+      "artifact_id": "user-object-b16a68a8029f",
+      "artifact_type": "semantic_inventory",
+      "checksum": "d9944b95e924efd3aba505108d2005e35a4e6cbdec094875a51a23786c93ffc7",
+      "checksums": {
+        "user-object-b16a68a8029f": ""
       },
       "compilation": null,
       "creation_time": "",
@@ -19,12 +98,12 @@
       },
       "dependency_trace": {
         "dependency_chain": [
-          "user-object-32468f735f2d"
+          "user-object-b16a68a8029f"
         ],
         "nodes": [
           {
             "artifact": {
-              "artifact_id": "user-object-32468f735f2d",
+              "artifact_id": "user-object-b16a68a8029f",
               "artifact_type": "semantic_inventory",
               "checksum": "",
               "schema_version": "1.0",
@@ -34,15 +113,15 @@
               }
             },
             "dependencies": [
-              "user-object-32468f735f2d"
+              "user-object-b16a68a8029f"
             ],
-            "label": "user-object-32468f735f2d",
+            "label": "user-object-b16a68a8029f",
             "node_id": "explain-node:001"
           }
         ]
       },
       "engine_version": "1.0.0",
-      "explanation_id": "explanation:1bca5cb1e329c8bd78fbf598",
+      "explanation_id": "explanation:4f4ae1689057957e7012c9c0",
       "knowledge_id": "",
       "metadata": {
         "attributes": {
@@ -55,9 +134,9 @@
       },
       "planning_rule_id": "",
       "provenance": {
-        "artifact_id": "user-object-32468f735f2d",
+        "artifact_id": "user-object-b16a68a8029f",
         "checksums": {
-          "user-object-32468f735f2d": ""
+          "user-object-b16a68a8029f": ""
         },
         "source_references": []
       },
@@ -81,15 +160,15 @@
       }
     },
     {
-      "affordance_id": "affordance:user-object-32468f735f2d",
-      "artifact_id": "affordance:user-object-32468f735f2d",
+      "affordance_id": "affordance:user-object-b16a68a8029f",
+      "artifact_id": "affordance:user-object-b16a68a8029f",
       "artifact_type": "affordance",
-      "checksum": "cf19b1d8fcd137f88e29896609a68c8da537278fe43bf535613c15ef33784f6e",
+      "checksum": "0c3dc0c1727df7d1b15f59478227ff1e3797e6a94b90155f0fd3e0a4f6148c39",
       "checksums": {
-        "affordance:user-object-32468f735f2d": "4ef9492066082672050b1c4af6120634610020fd0211408871931ea574213edd"
+        "affordance:user-object-b16a68a8029f": "c46ac430d3488ec4d2a236bc3f4e4be3565c2d7fb9fdf01fc82ce78858f4b76d"
       },
       "compilation": null,
-      "creation_time": "2026-07-21T11:35:40",
+      "creation_time": "2026-07-28T12:57:16",
       "decision_trace": {
         "facts": [],
         "ordered_actions": [],
@@ -98,15 +177,15 @@
       },
       "dependency_trace": {
         "dependency_chain": [
-          "knowledge:user-object-32468f735f2d",
-          "affordance:user-object-32468f735f2d"
+          "knowledge:user-object-b16a68a8029f",
+          "affordance:user-object-b16a68a8029f"
         ],
         "nodes": [
           {
             "artifact": {
-              "artifact_id": "affordance:user-object-32468f735f2d",
+              "artifact_id": "affordance:user-object-b16a68a8029f",
               "artifact_type": "affordance",
-              "checksum": "4ef9492066082672050b1c4af6120634610020fd0211408871931ea574213edd",
+              "checksum": "c46ac430d3488ec4d2a236bc3f4e4be3565c2d7fb9fdf01fc82ce78858f4b76d",
               "schema_version": "1.0",
               "source_engine": {
                 "engine_id": "ENG-013",
@@ -114,16 +193,16 @@
               }
             },
             "dependencies": [
-              "knowledge:user-object-32468f735f2d"
+              "knowledge:user-object-b16a68a8029f"
             ],
-            "label": "knowledge:user-object-32468f735f2d",
+            "label": "knowledge:user-object-b16a68a8029f",
             "node_id": "explain-node:001"
           },
           {
             "artifact": {
-              "artifact_id": "affordance:user-object-32468f735f2d",
+              "artifact_id": "affordance:user-object-b16a68a8029f",
               "artifact_type": "affordance",
-              "checksum": "4ef9492066082672050b1c4af6120634610020fd0211408871931ea574213edd",
+              "checksum": "c46ac430d3488ec4d2a236bc3f4e4be3565c2d7fb9fdf01fc82ce78858f4b76d",
               "schema_version": "1.0",
               "source_engine": {
                 "engine_id": "ENG-013",
@@ -131,17 +210,17 @@
               }
             },
             "dependencies": [
-              "knowledge:user-object-32468f735f2d",
-              "affordance:user-object-32468f735f2d"
+              "knowledge:user-object-b16a68a8029f",
+              "affordance:user-object-b16a68a8029f"
             ],
-            "label": "affordance:user-object-32468f735f2d",
+            "label": "affordance:user-object-b16a68a8029f",
             "node_id": "explain-node:002"
           }
         ]
       },
       "engine_version": "1.0.0",
-      "explanation_id": "explanation:8297fc05309ad3d516d583b4",
-      "knowledge_id": "knowledge:user-object-32468f735f2d",
+      "explanation_id": "explanation:9d9aaf72af5b3795fb976ea1",
+      "knowledge_id": "knowledge:user-object-b16a68a8029f",
       "metadata": {
         "attributes": {
           "source_schema": "1.0"
@@ -153,9 +232,9 @@
       },
       "planning_rule_id": "",
       "provenance": {
-        "artifact_id": "affordance:user-object-32468f735f2d",
+        "artifact_id": "affordance:user-object-b16a68a8029f",
         "checksums": {
-          "affordance:user-object-32468f735f2d": "4ef9492066082672050b1c4af6120634610020fd0211408871931ea574213edd"
+          "affordance:user-object-b16a68a8029f": "c46ac430d3488ec4d2a236bc3f4e4be3565c2d7fb9fdf01fc82ce78858f4b76d"
         },
         "source_references": []
       },
@@ -168,85 +247,6 @@
       "semantic_plan_id": "",
       "source_engine": {
         "engine_id": "ENG-013",
-        "version": "1.0.0"
-      },
-      "source_version": "1.0.0",
-      "task_ir_id": "",
-      "validation": {
-        "errors": [],
-        "valid": true,
-        "warnings": []
-      }
-    },
-    {
-      "affordance_id": "",
-      "artifact_id": "knowledge:user-object-32468f735f2d",
-      "artifact_type": "knowledge",
-      "checksum": "3bfec3b8e51e3f5f10cc39289942d45c9b810c6f9a6cba86101d49def3c94add",
-      "checksums": {
-        "knowledge:user-object-32468f735f2d": "08222a0bf2f1c356b3eea265ead9c087669ca98453ee538b3486e4ef6e779ef2"
-      },
-      "compilation": null,
-      "creation_time": "2026-07-21T11:35:40",
-      "decision_trace": {
-        "facts": [],
-        "ordered_actions": [],
-        "planning_rule_id": "",
-        "semantic_plan_id": ""
-      },
-      "dependency_trace": {
-        "dependency_chain": [
-          "knowledge:user-object-32468f735f2d"
-        ],
-        "nodes": [
-          {
-            "artifact": {
-              "artifact_id": "knowledge:user-object-32468f735f2d",
-              "artifact_type": "knowledge",
-              "checksum": "08222a0bf2f1c356b3eea265ead9c087669ca98453ee538b3486e4ef6e779ef2",
-              "schema_version": "1.0",
-              "source_engine": {
-                "engine_id": "ENG-012",
-                "version": "1.0.0"
-              }
-            },
-            "dependencies": [
-              "knowledge:user-object-32468f735f2d"
-            ],
-            "label": "knowledge:user-object-32468f735f2d",
-            "node_id": "explain-node:001"
-          }
-        ]
-      },
-      "engine_version": "1.0.0",
-      "explanation_id": "explanation:d74149058d3a665bbd5a4cef",
-      "knowledge_id": "knowledge:user-object-32468f735f2d",
-      "metadata": {
-        "attributes": {
-          "source_schema": "1.0"
-        },
-        "correlation_id": "web-startup",
-        "source_versions": {
-          "ENG-012": "1.0.0"
-        }
-      },
-      "planning_rule_id": "",
-      "provenance": {
-        "artifact_id": "knowledge:user-object-32468f735f2d",
-        "checksums": {
-          "knowledge:user-object-32468f735f2d": "08222a0bf2f1c356b3eea265ead9c087669ca98453ee538b3486e4ef6e779ef2"
-        },
-        "source_references": []
-      },
-      "rule": {
-        "declared_actions": [],
-        "rule_id": "",
-        "rule_version": ""
-      },
-      "schema_version": "1.0",
-      "semantic_plan_id": "",
-      "source_engine": {
-        "engine_id": "ENG-012",
         "version": "1.0.0"
       },
       "source_version": "1.0.0",

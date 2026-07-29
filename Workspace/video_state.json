@@ -1,0 +1,21 @@
+{
+  "source_path": "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\.taskgraph-session\\video\\source-a1db34e29aa041ea81577b02c5dfa5be.mp4",
+  "metadata": {
+    "path": "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\.taskgraph-session\\video\\source-a1db34e29aa041ea81577b02c5dfa5be.mp4",
+    "name": "WhatsApp Video 2026-07-21 at 11.32.00 (1).mp4",
+    "duration_seconds": 62.11776666666666,
+    "width": 478,
+    "height": 850,
+    "fps": 30.00751797794834,
+    "frame_count": 1864,
+    "codec": "h264",
+    "file_size": 13382892
+  },
+  "extraction": {
+    "state": "ready",
+    "current": 0,
+    "total": 0,
+    "eta": 0.0,
+    "frame": null
+  }
+}

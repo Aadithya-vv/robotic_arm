@@ -1,0 +1,121 @@
+{
+  "robot_id": "robot_001",
+  "robot_name": "Desktop Arm V1 (Proxy)",
+  "robot_model": "6DOF_V1",
+  "robot_version": "1.0",
+  "number_of_joints": 6,
+  "joint_names": [
+    "Base",
+    "Shoulder",
+    "Elbow",
+    "Wrist1",
+    "Wrist2",
+    "Gripper"
+  ],
+  "joint_types": [
+    "Revolute",
+    "Revolute",
+    "Revolute",
+    "Revolute",
+    "Revolute",
+    "Revolute"
+  ],
+  "workspace_origin": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "workspace_bounds": {
+    "x": [
+      -400,
+      400
+    ],
+    "y": [
+      -400,
+      400
+    ],
+    "z": [
+      0,
+      500
+    ]
+  },
+  "coordinate_system": "World",
+  "units": {
+    "distance": "mm",
+    "angle": "degrees",
+    "time": "seconds"
+  },
+  "end_effector": {
+    "name": "Gripper",
+    "type": "Gripper"
+  },
+  "supported_operations": [
+    "Move",
+    "Pick",
+    "Place",
+    "Wait"
+  ],
+  "speed_profiles": [
+    {
+      "id": "slow",
+      "name": "Slow",
+      "scale": 0.35
+    },
+    {
+      "id": "normal",
+      "name": "Normal",
+      "scale": 0.65
+    },
+    {
+      "id": "fast",
+      "name": "Fast",
+      "scale": 0.9
+    }
+  ],
+  "accuracy_profiles": [
+    {
+      "id": "high_precision",
+      "name": "High Precision",
+      "tolerance_mm": 1
+    },
+    {
+      "id": "balanced",
+      "name": "Balanced",
+      "tolerance_mm": 3
+    },
+    {
+      "id": "high_speed",
+      "name": "High Speed",
+      "tolerance_mm": 6
+    }
+  ],
+  "home_poses": [
+    {
+      "id": "home",
+      "name": "HOME",
+      "pose": [
+        0,
+        -30,
+        65,
+        0,
+        55,
+        0
+      ]
+    }
+  ],
+  "object_vocabulary": [
+    "Cup",
+    "Bottle",
+    "Plate",
+    "Spoon",
+    "Fork"
+  ],
+  "connection": {
+    "status": "Offline (Proxy)",
+    "service": "_robot-oram._tcp.local",
+    "transport": "WiFi",
+    "host": "proxy.local",
+    "port": 7421,
+    "proxy": true
+  }
+}

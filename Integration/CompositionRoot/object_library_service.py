@@ -10,11 +10,14 @@ class ObjectLibraryService:
         instances=sorted(cluster["instances"],key=lambda item:(-float(item.get("confidence",0.0)),int(item["frame"])));representative=instances[0];box=representative["bounding_box"]
         saved,thumbnail=self._save_instances(instances,representative)
         source_frames=sorted(set(cluster.get("representative_frames",()))|{item["frame"] for item in instances})
-        semantic={"path":thumbnail,"frame_id":f"video-frame-{representative['frame']}","confidence":float(representative.get("confidence",0.0)),"x":box["x"],"y":box["y"],"width":box["width"],"height":box["height"],"instance_images":saved,"source_frames":source_frames}
+        semantic={"path":thumbnail,"frame_id":representative.get("frame_id") or f"video-frame-{representative['frame']}","confidence":float(representative.get("confidence",0.0)),"x":box["x"],"y":box["y"],"width":box["width"],"height":box["height"],"instance_images":saved,"source_frames":source_frames}
         values={"name":fields.get("name") or cluster["name"],"description":fields.get("description",f"Semantic object generated from {cluster['frame_count']} detected frames."),"category":fields.get("category","Detected Objects"),"notes":fields.get("notes",""),"tags":fields.get("tags",""),"aliases":fields.get("aliases",""),"material":fields.get("material",""),"color":fields.get("color",""),"properties":fields.get("properties",{}),"metadata":fields.get("metadata",{}),"confidence":cluster["confidence"]}
         existing=next((item for item in self.library.list() if str(item.get("name","")).casefold()==str(values["name"]).casefold()),None)
         if existing is not None and hasattr(self.library,"replace_capture"):
-            self.library.replace_capture(existing["object_id"],semantic,representative.get("confidence",cluster["confidence"]));return next(item for item in self.library.list() if item["object_id"]==existing["object_id"])
+            previous=Path(existing.get("thumbnail",{}).get("path","")).parent
+            self.library.replace_capture(existing["object_id"],semantic,representative.get("confidence",cluster["confidence"]),values)
+            if previous != Path(thumbnail).parent and previous.is_dir() and previous.parent.name=="instances":shutil.rmtree(previous,ignore_errors=True)
+            return next(item for item in self.library.list() if item["object_id"]==existing["object_id"])
         before={x["object_id"] for x in self.library.list()};self.library.create(values,semantic,())
         return next(x for x in self.library.list() if x["object_id"] not in before)
 

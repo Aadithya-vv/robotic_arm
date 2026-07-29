@@ -1,11 +1,58 @@
 {
   "version": "1.0.0",
   "schema_version": "1.0",
-  "generated_at": "2026-07-28T03:53:22.274620+00:00",
+  "generated_at": "2026-07-29T03:23:54.613839+00:00",
   "records": [
     {
-      "knowledge_id": "knowledge:user-object-32468f735f2d",
-      "object_id": "user-object-32468f735f2d",
+      "knowledge_id": "knowledge:user-object-6e6485599b8c",
+      "object_id": "user-object-6e6485599b8c",
+      "object_name": "Bottle",
+      "category": "Detected Objects",
+      "summary": "Bottle — Detected Objects. Semantic object generated from 13 detected frames.",
+      "properties": {
+        "category": "Detected Objects",
+        "semantic_version": "1.0",
+        "tags": []
+      },
+      "facts": [
+        {
+          "predicate": "description",
+          "value": "Semantic object generated from 13 detected frames.",
+          "source": "semantic_inventory"
+        }
+      ],
+      "attributes": {
+        "user_name": "Bottle",
+        "ai_name": "",
+        "times_seen": 1,
+        "recognition_statistics": {
+          "matches": 0,
+          "misses": 0
+        }
+      },
+      "typical_uses": [],
+      "materials": [],
+      "environment": {},
+      "confidence": 0.63696133517302,
+      "knowledge_sources": [
+        "semantic_inventory",
+        "user-object-6e6485599b8c"
+      ],
+      "relationships": [],
+      "metadata": {
+        "semantic_score": 0.657755,
+        "semantic_record_version": "1.0"
+      },
+      "version": "1.0.0",
+      "schema_version": "1.0",
+      "engine_version": "1.0.0",
+      "created": "2026-07-29T08:53:54",
+      "updated": "2026-07-29T08:53:54",
+      "checksum": "1feb7cb26df69d97b559d45973ba3824adc04bba59bc86c9df5344ea40a6db37"
+    },
+    {
+      "knowledge_id": "knowledge:user-object-b16a68a8029f",
+      "object_id": "user-object-b16a68a8029f",
       "object_name": "Spoon",
       "category": "Detected Objects",
       "summary": "Spoon — Detected Objects. Semantic object generated from 42 detected frames.",
@@ -18,13 +65,6 @@
         {
           "predicate": "description",
           "value": "Semantic object generated from 42 detected frames.",
-          "source": "semantic_inventory"
-        },
-        {
-          "predicate": "aliases",
-          "value": [
-            "fork"
-          ],
           "source": "semantic_inventory"
         }
       ],
@@ -40,36 +80,36 @@
       "typical_uses": [],
       "materials": [],
       "environment": {},
-      "confidence": 0.8060298036961329,
+      "confidence": 0.9667592644691467,
       "knowledge_sources": [
         "semantic_inventory",
-        "user-object-32468f735f2d"
+        "user-object-b16a68a8029f"
       ],
       "relationships": [],
       "metadata": {
-        "semantic_score": 0.825142,
+        "semantic_score": 0.756694,
         "semantic_record_version": "1.0"
       },
       "version": "1.0.0",
       "schema_version": "1.0",
       "engine_version": "1.0.0",
-      "created": "2026-07-21T11:35:40",
-      "updated": "2026-07-21T11:36:45",
-      "checksum": "08222a0bf2f1c356b3eea265ead9c087669ca98453ee538b3486e4ef6e779ef2"
+      "created": "2026-07-28T12:57:16",
+      "updated": "2026-07-28T14:07:01",
+      "checksum": "62c4019f877193b9b4b703cf51533ed68c222272ce5bbc593c6fb337a0f682fe"
     }
   ],
   "statistics": {
-    "total_records": 1,
+    "total_records": 2,
     "categories": {
-      "Detected Objects": 1
+      "Detected Objects": 2
     },
     "properties": {
-      "category": 1,
-      "semantic_version": 1,
-      "tags": 1
+      "category": 2,
+      "semantic_version": 2,
+      "tags": 2
     },
     "facts": 2,
     "relationships": 0,
-    "average_confidence": 0.8060298036961329
+    "average_confidence": 0.8018602998210833
   }
 }

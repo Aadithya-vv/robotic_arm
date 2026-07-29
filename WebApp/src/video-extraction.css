@@ -1,0 +1,42 @@
+.studio-panel.video-preview-panel video,
+.studio-panel.video-preview-panel .video-drop {
+  height: 205px;
+}
+
+.video-preview-panel .media-meta {
+  height: 90px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 45px;
+}
+
+.video-preview-panel .media-meta b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  body {
+    min-width: 0;
+  }
+
+  .video-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: auto;
+  }
+
+  .studio-panel.video-preview-panel video,
+  .studio-panel.video-preview-panel .video-drop {
+    height: 240px;
+  }
+
+  .video-preview-panel .media-meta {
+    height: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .extraction-progress {
+    min-height: 190px;
+  }
+}

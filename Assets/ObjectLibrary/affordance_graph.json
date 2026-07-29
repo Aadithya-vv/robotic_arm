@@ -2,12 +2,132 @@
   "version": "1.0.0",
   "schema_version": "1.0",
   "rule_version": "1.0.0",
-  "generated_at": "2026-07-28T03:53:22.277188+00:00",
+  "generated_at": "2026-07-29T03:23:54.616723+00:00",
   "records": [
     {
-      "affordance_id": "affordance:user-object-32468f735f2d",
-      "object_id": "user-object-32468f735f2d",
-      "knowledge_id": "knowledge:user-object-32468f735f2d",
+      "affordance_id": "affordance:user-object-6e6485599b8c",
+      "object_id": "user-object-6e6485599b8c",
+      "knowledge_id": "knowledge:user-object-6e6485599b8c",
+      "object_name": "Bottle",
+      "summary": "Bottle: carry, close, open, pick, place, pour.",
+      "affordances": [
+        "carry",
+        "close",
+        "open",
+        "pick",
+        "place",
+        "pour"
+      ],
+      "preconditions": {
+        "carry": [
+          "object available"
+        ],
+        "close": [
+          "object available"
+        ],
+        "open": [
+          "object available"
+        ],
+        "pick": [
+          "object available"
+        ],
+        "place": [
+          "object available"
+        ],
+        "pour": [
+          "object available"
+        ]
+      },
+      "postconditions": {
+        "carry": [
+          "capability applied"
+        ],
+        "close": [
+          "capability applied"
+        ],
+        "open": [
+          "capability applied"
+        ],
+        "pick": [
+          "capability applied"
+        ],
+        "place": [
+          "capability applied"
+        ],
+        "pour": [
+          "capability applied"
+        ]
+      },
+      "constraints": {
+        "carry": [
+          "context validation required"
+        ],
+        "close": [
+          "context validation required"
+        ],
+        "open": [
+          "context validation required"
+        ],
+        "pick": [
+          "context validation required"
+        ],
+        "place": [
+          "context validation required"
+        ],
+        "pour": [
+          "context validation required"
+        ]
+      },
+      "safety_notes": {
+        "carry": [
+          "execution safety belongs downstream"
+        ],
+        "close": [
+          "execution safety belongs downstream"
+        ],
+        "open": [
+          "execution safety belongs downstream"
+        ],
+        "pick": [
+          "execution safety belongs downstream"
+        ],
+        "place": [
+          "execution safety belongs downstream"
+        ],
+        "pour": [
+          "execution safety belongs downstream"
+        ]
+      },
+      "confidence": 0.63696133517302,
+      "knowledge_sources": [
+        "semantic_inventory",
+        "user-object-6e6485599b8c",
+        "knowledge:user-object-6e6485599b8c"
+      ],
+      "generation_rule": [
+        "name.bottle@1.0.0"
+      ],
+      "metadata": {
+        "category": "Detected Objects",
+        "action_categories": {
+          "carry": "transport",
+          "close": "access",
+          "open": "access",
+          "pick": "manipulation",
+          "place": "manipulation",
+          "pour": "container"
+        }
+      },
+      "schema_version": "1.0",
+      "engine_version": "1.0.0",
+      "checksum": "15a391113d7faef00b53cf919dc1cc4e839e4be53c709a4e8dc997638fb691ab",
+      "created": "2026-07-29T08:53:54",
+      "updated": "2026-07-29T08:53:54"
+    },
+    {
+      "affordance_id": "affordance:user-object-b16a68a8029f",
+      "object_id": "user-object-b16a68a8029f",
+      "knowledge_id": "knowledge:user-object-b16a68a8029f",
       "object_name": "Spoon",
       "summary": "Spoon: hold, move, pick, place, stir, transfer.",
       "affordances": [
@@ -98,11 +218,11 @@
           "execution safety belongs downstream"
         ]
       },
-      "confidence": 0.8060298036961329,
+      "confidence": 0.9667592644691467,
       "knowledge_sources": [
         "semantic_inventory",
-        "user-object-32468f735f2d",
-        "knowledge:user-object-32468f735f2d"
+        "user-object-b16a68a8029f",
+        "knowledge:user-object-b16a68a8029f"
       ],
       "generation_rule": [
         "name.spoon@1.0.0"
@@ -120,27 +240,33 @@
       },
       "schema_version": "1.0",
       "engine_version": "1.0.0",
-      "checksum": "4ef9492066082672050b1c4af6120634610020fd0211408871931ea574213edd",
-      "created": "2026-07-21T11:35:40",
-      "updated": "2026-07-21T11:36:45"
+      "checksum": "c46ac430d3488ec4d2a236bc3f4e4be3565c2d7fb9fdf01fc82ce78858f4b76d",
+      "created": "2026-07-28T12:57:16",
+      "updated": "2026-07-28T14:07:01"
     }
   ],
   "statistics": {
-    "total_records": 1,
-    "total_capabilities": 6,
+    "total_records": 2,
+    "total_capabilities": 12,
     "actions": {
+      "carry": 1,
+      "close": 1,
+      "open": 1,
+      "pick": 2,
+      "place": 2,
+      "pour": 1,
       "hold": 1,
       "move": 1,
-      "pick": 1,
-      "place": 1,
       "stir": 1,
       "transfer": 1
     },
     "action_categories": {
-      "manipulation": 4,
-      "tool use": 1,
-      "transport": 1
+      "transport": 2,
+      "access": 2,
+      "manipulation": 6,
+      "container": 1,
+      "tool use": 1
     },
-    "average_confidence": 0.8060298036961329
+    "average_confidence": 0.8018602998210833
   }
 }

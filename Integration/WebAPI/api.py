@@ -7,15 +7,18 @@ from __future__ import annotations
 
 import asyncio
 import json
+import re
 import sys
 import shutil
 from datetime import datetime
 from contextlib import asynccontextmanager
 from dataclasses import fields, is_dataclass
 from pathlib import Path
+from threading import RLock
 from typing import Any
 from time import monotonic
 from uuid import uuid4
+from urllib.parse import quote
 
 from fastapi import FastAPI, HTTPException, Request, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
@@ -47,7 +50,7 @@ from frame_processing import FrameProcessingService
 from cluster_engine import ClusterEngine
 from object_library_service import ObjectLibraryService
 from action_builder_store import ActionBuilderStore, ActionLibraryStore
-from Engines import ActionAssetEngine, CompilerEngine, EngineBus, PackagingEngine
+from Engines import ActionAssetEngine, CompilerEngine, EngineBus, ExecutionTaskStore, PackagingEngine, RobotProfileStore
 
 
 def plain(value: Any) -> Any:
@@ -62,6 +65,141 @@ def plain(value: Any) -> Any:
     if hasattr(value, "value"):
         return value.value
     return value
+
+
+FRAME_MANIFEST_PATH = ROOT / "Workspace" / "frame_manifest.json"
+FRAME_REVIEW_PATH = ROOT / "Workspace" / "frame_review_state.json"
+FRAME_STATE_LOCK = RLock()
+
+
+def _read_json(path: Path, fallback):
+    try:
+        return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else fallback
+    except (OSError, ValueError, TypeError, json.JSONDecodeError):
+        return fallback
+
+
+def _write_json(path: Path, value: dict[str, Any]):
+    with FRAME_STATE_LOCK:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        temporary = path.with_name(f"{path.name}.{uuid4().hex}.tmp")
+        try:
+            temporary.write_text(json.dumps(plain(value), indent=2), encoding="utf-8")
+            temporary.replace(path)
+        finally:
+            temporary.unlink(missing_ok=True)
+
+
+def _frame_sort_key(path: Path):
+    match = re.search(r"(\d+)$", path.stem)
+    return (int(match.group(1)) if match else sys.maxsize, path.name.lower())
+
+
+def _frame_file_available(path: Path) -> bool:
+    try:
+        if not path.is_file() or path.stat().st_size <= 8:
+            return False
+        with path.open("rb") as stream:
+            return stream.read(8) == b"\x89PNG\r\n\x1a\n"
+    except OSError:
+        return False
+
+
+def ensure_frame_manifest(runtime) -> dict[str, Any]:
+    """Return the persisted extraction manifest, reconciling legacy frame files once."""
+    workspace = runtime.video_workspace
+    stored = _read_json(FRAME_MANIFEST_PATH, {})
+    session_id = str(stored.get("session_id") or uuid4().hex)
+    records = [item for item in stored.get("frames", []) if isinstance(item, dict) and item.get("filename")]
+    known = {str(item["filename"]): item for item in records}
+    changed = not stored.get("session_id")
+    for position, path in enumerate(sorted(workspace.frames, key=_frame_sort_key), 1):
+        if path.name in known:
+            continue
+        width = height = 0
+        try:
+            import cv2
+            image = cv2.imread(str(path))
+            if image is not None:
+                height, width = image.shape[:2]
+        except Exception:
+            pass
+        fps = float(getattr(workspace.metadata, "fps", 0) or 0)
+        record = {
+            "frame_id": f"{session_id}:{uuid4().hex}",
+            "filename": path.name,
+            "source_frame_number": position,
+            "timestamp": (position - 1) / fps if fps > 0 else 0.0,
+            "width": width,
+            "height": height,
+        }
+        records.append(record)
+        known[path.name] = record
+        changed = True
+    records.sort(key=lambda item: _frame_sort_key(Path(str(item["filename"]))))
+    manifest = {"version": 1, "session_id": session_id, "frames": records}
+    if changed:
+        _write_json(FRAME_MANIFEST_PATH, manifest)
+    return manifest
+
+
+def persist_frame_review(runtime):
+    workspace = runtime.video_workspace
+    review = getattr(workspace, "web_frame_review", {"current_frame_id": None, "selected_frame_ids": []})
+    _write_json(FRAME_REVIEW_PATH, {
+        "version": 1,
+        "current_frame_id": review.get("current_frame_id"),
+        "selected_frame_ids": list(dict.fromkeys(review.get("selected_frame_ids", []))),
+        "detection": getattr(workspace, "web_detection", {}),
+        "clusters": getattr(workspace, "web_clusters", {}),
+    })
+
+
+def restore_frame_review(runtime):
+    workspace = runtime.video_workspace
+    stored = _read_json(FRAME_REVIEW_PATH, {})
+    detection = stored.get("detection") if isinstance(stored.get("detection"), dict) else {}
+    if detection.get("state") == "running":
+        detection.update(state="cancelled", error="Detection was interrupted by application shutdown.")
+    workspace.web_detection = detection or {"state": "idle", "current": 0, "total": 0, "eta": 0.0, "frames": {}, "metrics": {}}
+    workspace.web_clusters = stored.get("clusters") if isinstance(stored.get("clusters"), dict) else {"renamed": {}, "ignored": [], "deleted": [], "accepted": [], "generated": []}
+    for key, fallback in {"renamed": {}, "ignored": [], "deleted": [], "accepted": [], "selected": [], "expanded": [], "generated": [], "clustering": {"state": "idle", "progress": 0, "error": None}}.items():
+        workspace.web_clusters.setdefault(key, fallback)
+    workspace.web_frame_review = {
+        "current_frame_id": stored.get("current_frame_id"),
+        "selected_frame_ids": list(dict.fromkeys(stored.get("selected_frame_ids", []))),
+    }
+
+
+def frame_workspace_payload(runtime) -> dict[str, Any]:
+    workspace = runtime.video_workspace
+    manifest = ensure_frame_manifest(runtime)
+    detection = getattr(workspace, "web_detection", {})
+    detection_frames = detection.get("frames", {})
+    frames = []
+    for position, item in enumerate(manifest["frames"], 1):
+        path = workspace.frames_dir / str(item["filename"])
+        detected = detection_frames.get(str(position), {})
+        available = _frame_file_available(path)
+        frames.append({
+            **item,
+            "ordinal": position,
+            "availability": "available" if available else "missing",
+            "available": available,
+            "detection_status": detected.get("status", "waiting"),
+            "detections": detected.get("labels", []),
+            "image_url": f"/frame-workspace/frames/{item['frame_id']}?variant=raw",
+        })
+    valid_ids = {item["frame_id"] for item in frames}
+    review = getattr(workspace, "web_frame_review", {"current_frame_id": None, "selected_frame_ids": []})
+    selected = [item for item in review.get("selected_frame_ids", []) if item in valid_ids]
+    current = review.get("current_frame_id") if review.get("current_frame_id") in valid_ids else (frames[0]["frame_id"] if frames else None)
+    return {
+        "session_id": manifest["session_id"],
+        "frames": frames,
+        "review": {"current_frame_id": current, "selected_frame_ids": selected},
+        "detection": plain(detection),
+    }
 
 
 def runtime_payload(runtime) -> dict[str, Any]:
@@ -84,6 +222,14 @@ def runtime_payload(runtime) -> dict[str, Any]:
             "current_object": video.current_object,
             "current_confidence": video.current_confidence,
             "extraction": plain(getattr(video, "web_extraction", {"state": "idle", "current": 0, "total": 0, "eta": 0.0, "frame": None})),
+            "video": {
+                "metadata": plain(video.metadata),
+                "source_url": (
+                    f"/video/source?v={video.source_path.stat().st_mtime_ns}"
+                    if video.source_path and video.source_path.is_file()
+                    else None
+                ),
+            },
             "detection": plain(getattr(video, "web_detection", {"state": "idle", "current": 0, "total": 0, "eta": 0.0, "frames": {}, "metrics": {}})),
         },
         "timeline": plain(runtime.monitor.snapshot()[-120:]),
@@ -100,6 +246,7 @@ def scene_payload(runtime) -> dict[str, Any]:
 
 def detection_payload(runtime) -> dict[str, Any]:
     rows = []
+    manifest_frames = ensure_frame_manifest(runtime).get("frames", [])
     deleted = set(getattr(runtime.video_workspace, "web_clusters", {}).get("deleted", ()))
     for index, value in sorted(runtime.video_workspace.results.items()):
         _, vision, _, annotated, status = value
@@ -110,13 +257,31 @@ def detection_payload(runtime) -> dict[str, Any]:
                 continue
             rows.append({
                 "frame": index + 1,
+                "frame_id": manifest_frames[index]["frame_id"] if index < len(manifest_frames) else f"video-frame-{index + 1}",
                 "class_name": class_name,
                 "confidence": item.confidence,
                 "tracking_id": item.candidate_id,
                 "bounding_box": plain(item.region),
+                "embedding": [number for feature in item.features for number in feature.values],
                 "status": status,
                 "annotated_frame": f"/frames/{Path(annotated).name}",
             })
+    if not rows:
+        state = getattr(runtime.video_workspace, "web_detection", {})
+        for frame_number, frame_state in state.get("frames", {}).items():
+            index = max(0, int(frame_number) - 1)
+            for item in frame_state.get("labels", []):
+                rows.append({
+                    "frame": index + 1,
+                    "frame_id": manifest_frames[index]["frame_id"] if index < len(manifest_frames) else f"video-frame-{index + 1}",
+                    "class_name": item.get("class_name") or item.get("label") or "Object",
+                    "confidence": float(item.get("confidence", 0.0)),
+                    "tracking_id": item.get("object_id") or f"frame-{index + 1}-object",
+                    "bounding_box": {key: int(item.get(key, 0)) for key in ("x", "y", "width", "height")},
+                    "embedding": item.get("embedding", []),
+                    "status": frame_state.get("status", "detected"),
+                    "annotated_frame": f"/frames/{manifest_frames[index]['filename']}" if index < len(manifest_frames) else None,
+                })
     return {"detections": rows, "errors": plain(runtime.video_workspace.errors)}
 
 
@@ -146,17 +311,67 @@ def cluster_payload(runtime) -> dict[str, Any]:
     return {"clusters": clusters, "review": plain(review)}
 
 
+def frame_cluster_payload(runtime) -> dict[str, Any]:
+    review = runtime.video_workspace.web_clusters
+    selected = set(review.get("selected", []))
+    expanded = set(review.get("expanded", []))
+    deleted = set(review.get("deleted", []))
+    frames = {item["ordinal"]: item for item in frame_workspace_payload(runtime)["frames"]}
+    clusters = []
+    for stored in review.get("generated", []):
+        if stored["id"] in deleted:
+            continue
+        representatives = []
+        for number in stored.get("representative_frames", []):
+            frame = frames.get(int(number))
+            if frame:
+                representatives.append({
+                    "frame_id": frame["frame_id"],
+                    "ordinal": frame["ordinal"],
+                    "filename": frame["filename"],
+                    "image_url": frame["image_url"],
+                    "available": frame["available"],
+                })
+        instances = []
+        for instance in stored.get("instances", []):
+            number = int(instance["frame"])
+            frame = frames.get(number)
+            instances.append({
+                **instance,
+                "frame_id": frame["frame_id"] if frame else instance.get("frame_id") or f"video-frame-{number}",
+                "image_url": frame["image_url"] if frame else None,
+            })
+        clusters.append({
+            **stored,
+            "name": review.get("renamed", {}).get(stored["id"], stored["name"]),
+            "instances": instances,
+            "member_frames": sorted({item["frame_id"] for item in instances}),
+            "representatives": representatives,
+            "representative_frame": representatives[0] if representatives else None,
+            "object_count": len(instances),
+            "selected": stored["id"] in selected,
+            "expanded": stored["id"] in expanded,
+            "review_state": "accepted" if stored["id"] in review.get("accepted", []) else "rejected" if stored["id"] in review.get("ignored", []) else stored.get("review_state", "pending"),
+            "created_at": stored.get("created_at") or datetime.now().isoformat(timespec="seconds"),
+        })
+    return {
+        "clusters": plain(clusters),
+        "selected_cluster_ids": [item["id"] for item in clusters if item["selected"]],
+        "clustering": plain(review.get("clustering", {"state": "idle", "progress": 0, "error": None})),
+    }
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     app.state.runtime = create_runtime({"runtime_mode": "web", "release": "v1.0"}, "web-startup")
-    app.state.runtime.video_workspace.web_extraction = {"state": "idle", "current": 0, "total": 0, "eta": 0.0, "frame": None}
-    app.state.runtime.video_workspace.web_detection = {"state": "idle", "current": 0, "total": 0, "eta": 0.0, "frames": {}, "metrics": {}}
-    app.state.runtime.video_workspace.web_clusters = {"renamed": {}, "ignored": [], "deleted": [], "accepted": []}
+    restore_frame_review(app.state.runtime)
     app.state.runtime_subscribers = set()
     app.state.object_subscribers = set()
     app.state.action_assets = ActionAssetEngine(ROOT)
-    app.state.compiler = CompilerEngine(app.state.runtime.taskir, app.state.action_assets, taskir_request)
-    app.state.packaging = PackagingEngine(ROOT, app.state.action_assets, app.state.compiler)
+    app.state.execution_tasks = ExecutionTaskStore(ROOT)
+    app.state.robot_profiles = RobotProfileStore(ROOT)
+    app.state.compiler = CompilerEngine(ROOT, app.state.runtime.taskir, app.state.action_assets, app.state.execution_tasks, taskir_request)
+    app.state.packaging = PackagingEngine(ROOT, app.state.execution_tasks, app.state.robot_profiles)
     app.state.engine_bus = EngineBus()
     app.state.engine_bus.start()
     app.state.cluster_subscribers = set()
@@ -185,6 +400,94 @@ def get_runtime():
 @app.get("/objects")
 def get_objects():
     return {"objects": plain(app.state.runtime.object_library.list())}
+
+
+def object_dependency_payload(object_id: str) -> dict[str, Any]:
+    references: list[dict[str, str]] = []
+    try:
+        state = app.state.action_assets.load_workspace()
+        if any(item.get("objectId") == object_id for item in state.get("scene_objects", ()) + state.get("timeline", ())):
+            references.append({"kind": "action_builder", "id": "workspace", "name": "Action Builder workspace"})
+    except (OSError, ValueError, TypeError, json.JSONDecodeError):
+        pass
+    try:
+        for action in app.state.action_assets.list_assets():
+            if object_id in action.get("referencedObjects", ()) or any(item.get("objectId") == object_id for item in action.get("scene_objects", ()) + action.get("keyframes", ())):
+                references.append({"kind": "action", "id": action["id"], "name": action.get("name") or action["id"]})
+    except (OSError, ValueError, TypeError, json.JSONDecodeError):
+        pass
+    locations = (
+        ("taskir", ROOT / "Assets" / "TaskIR"),
+        ("execution_task", ROOT / "Assets" / "Execution Tasks"),
+        ("execution_package", ROOT / "Assets" / "ExecutionPackages"),
+    )
+    for kind, directory in locations:
+        if not directory.is_dir(): continue
+        for path in directory.rglob("*.json"):
+            try:
+                if object_id in path.read_text(encoding="utf-8"):
+                    references.append({"kind": kind, "id": path.stem, "name": path.name})
+            except OSError:
+                continue
+    unique = {(item["kind"], item["id"]): item for item in references}
+    return {"object_id": object_id, "count": len(unique), "references": list(unique.values())}
+
+
+def object_manifest_payload() -> dict[str, Any]:
+    library = app.state.runtime.object_library
+    objects = []
+    for item in library.list():
+        value = plain(item)
+        object_id = value["object_id"]
+        thumbnail = value.get("thumbnail", {})
+        metadata = value.get("metadata", {})
+        frame_ids = list(metadata.get("frame_ids") or thumbnail.get("source_frames") or value.get("frames") or ())
+        detections = list(metadata.get("detections") or ())
+        target = Path(thumbnail.get("path", ""))
+        dependencies = object_dependency_payload(object_id)
+        objects.append({
+            "object_id": object_id,
+            "name": value.get("name", ""),
+            "category": value.get("category", ""),
+            "type": value.get("type", ""),
+            "description": value.get("description", ""),
+            "tags": list(value.get("tags") or ()),
+            "aliases": list(value.get("aliases") or ()),
+            "properties": value.get("properties") or {},
+            "metadata": metadata,
+            "color": value.get("color", ""),
+            "material": value.get("material", ""),
+            "created": value.get("created", ""),
+            "updated": value.get("updated", ""),
+            "version": int(value.get("version", 1) or 1),
+            "review_status": metadata.get("review_state", ""),
+            "availability": "available" if target.is_file() else "missing",
+            "thumbnail_url": f"/objects/{quote(object_id, safe='')}/thumbnail" if target.is_file() else "",
+            "representative_image_url": f"/objects/{quote(object_id, safe='')}/thumbnail" if target.is_file() else "",
+            "representative_frame_id": thumbnail.get("frame_id", ""),
+            "source_cluster": metadata.get("cluster_id", ""),
+            "source_cluster_name": metadata.get("cluster_name", ""),
+            "source_frames": frame_ids,
+            "frame_count": len(frame_ids),
+            "bounding_boxes": [entry.get("bounding_box") for entry in detections if entry.get("bounding_box")],
+            "detection_confidence": thumbnail.get("confidence"),
+            "average_confidence": value.get("average_confidence"),
+            "usage_count": dependencies["count"],
+            "dependencies": dependencies["references"],
+        })
+    return {"version": "TaskGraph Object Manifest v1", "objects": objects, "categories": plain(library.categories())}
+
+
+@app.get("/object-library/manifest")
+def get_object_manifest():
+    return object_manifest_payload()
+
+
+@app.get("/object-library/objects/{object_id}/dependencies")
+def get_object_dependencies(object_id: str):
+    if not any(item["object_id"] == object_id for item in app.state.runtime.object_library.list()):
+        raise HTTPException(404, "Object not found")
+    return object_dependency_payload(object_id)
 
 @app.get("/action-builder/state")
 def get_action_builder_state(): return app.state.action_assets.load_workspace()
@@ -366,6 +669,25 @@ def taskir_action_document(action_id: str):
     try: return {"task_ir": plain(app.state.compiler.get(action_id))}
     except KeyError as exc: raise HTTPException(404, "Compiled Action TaskIR not found") from exc
 
+@app.post("/taskir/actions/{action_id}/move-to-execution")
+def taskir_move_to_execution(action_id: str):
+    try: return {"execution_task": plain(app.state.compiler.create_execution_task(action_id))}
+    except KeyError as exc: raise HTTPException(404, "Compile the Action before moving it to Execution") from exc
+
+@app.get("/execution/tasks")
+def execution_tasks():
+    return {"tasks": plain(app.state.packaging.list_execution_tasks())}
+
+@app.get("/execution/tasks/{execution_task_id}")
+def execution_task(execution_task_id: str):
+    try: return plain(app.state.packaging.get_execution_task(execution_task_id))
+    except KeyError as exc: raise HTTPException(404, "Execution Task not found") from exc
+
+@app.api_route("/execution/tasks/{execution_task_id}/{filename}", methods=["GET", "HEAD"])
+def execution_task_asset(execution_task_id: str, filename: str):
+    try: return FileResponse(app.state.packaging.execution_task_asset(execution_task_id, filename))
+    except KeyError as exc: raise HTTPException(404, "Execution Task asset not found") from exc
+
 @app.post("/taskir/compile")
 async def taskir_compile(request: Request):
     body = await request.json()
@@ -425,7 +747,7 @@ def execution_refresh():
 @app.post("/execution/packages/preview")
 async def execution_package_preview(request: Request):
     body = await request.json()
-    try: return app.state.packaging.preview(body["robot_id"], body["action_id"], body.get("configuration", {}))
+    try: return app.state.packaging.preview(body["robot_id"], body["execution_task_id"], body.get("configuration", {}))
     except KeyError as exc: raise HTTPException(404, f"Resource not found: {exc.args[0]}") from exc
 
 @app.get("/execution/packages")
@@ -435,9 +757,15 @@ def execution_packages():
 @app.post("/execution/packages")
 async def execution_build_package(request: Request):
     body = await request.json()
-    try: return app.state.packaging.build(body["robot_id"], body["action_id"], body.get("configuration", {}))
+    try: return app.state.packaging.build(body["robot_id"], body["execution_task_id"], body.get("configuration", {}))
     except KeyError as exc: raise HTTPException(404, f"Resource not found: {exc.args[0]}") from exc
     except (ValueError, ConnectionError) as exc: raise HTTPException(422, str(exc)) from exc
+
+@app.post("/execution/packages/{package_id}/send")
+def execution_send_package(package_id: str):
+    try: return app.state.packaging.send_execution_package(package_id)
+    except KeyError as exc: raise HTTPException(404, "Execution Package not found") from exc
+    except ConnectionError as exc: raise HTTPException(409, str(exc)) from exc
 
 @app.get("/execution/packages/{package_id}")
 def execution_package(package_id: str):
@@ -490,14 +818,15 @@ def explain_detail(explanation_id:str):
     return plain(response.record)
 
 
-@app.get("/objects/{object_id}/thumbnail")
+@app.api_route("/objects/{object_id}/thumbnail", methods=["GET", "HEAD"])
 def get_object_thumbnail(object_id: str):
     item = next((value for value in app.state.runtime.object_library.list() if value["object_id"] == object_id), None)
     if item is None:
         raise HTTPException(404, "Object not found")
-    target = Path(item.get("thumbnail", {}).get("path", ""))
-    if target.is_file():
-        return FileResponse(target)
+    target = Path(item.get("thumbnail", {}).get("path", "")).resolve()
+    root = (ROOT / "Assets" / "ObjectLibrary" / "instances").resolve()
+    if target.is_file() and target.is_relative_to(root):
+        return FileResponse(target, headers={"Cache-Control": "private, max-age=300"})
     raise HTTPException(404, "Object thumbnail not found")
 
 
@@ -538,32 +867,145 @@ def get_detections():
     return detection_payload(app.state.runtime)
 
 
-@app.post("/video/import")
-async def import_video(request: Request, filename: str, rate: float = 1.0):
-    """Thin web adapter over the existing asynchronous VideoWorkspace."""
-    runtime = app.state.runtime
-    workspace = runtime.video_workspace
-    workspace.cancel()
-    workspace.frames, workspace.results, workspace.errors = [], {}, []
-    workspace.current_object, workspace.current_confidence = None, None
-    workspace.web_detection = {"state": "idle", "current": 0, "total": 0, "eta": 0.0, "frames": {}, "metrics": {}}
-    workspace.web_clusters = {"renamed": {}, "ignored": [], "deleted": [], "accepted": []}
+VIDEO_EXTENSIONS = {".mp4", ".avi", ".mov", ".mkv", ".webm"}
+MAX_VIDEO_BYTES = 2 * 1024 * 1024 * 1024
+
+@app.post("/video/validate")
+async def validate_video(request: Request, filename: str):
+    workspace = app.state.runtime.video_workspace
+    if workspace.web_extraction.get("state") == "extracting":
+        raise HTTPException(409, "Cancel the current extraction before importing another video.")
+    suffix = Path(filename).suffix.lower()
+    if suffix not in VIDEO_EXTENSIONS: raise HTTPException(415, "Unsupported video format. Use MP4, AVI, MOV, MKV, or WebM.")
     upload_dir = ROOT / ".taskgraph-session" / "video"
     upload_dir.mkdir(parents=True, exist_ok=True)
-    target = upload_dir / Path(filename).name
-    target.write_bytes(await request.body())
-    metadata = workspace.inspect(target)
-    state = {"state": "extracting", "current": 0, "total": 0, "eta": 0.0, "frame": None}
+    staging = upload_dir / f"uploading{suffix}"
+    size = 0
+    try:
+        with staging.open("wb") as stream:
+            async for chunk in request.stream():
+                size += len(chunk)
+                if size > MAX_VIDEO_BYTES: raise HTTPException(413, "Video exceeds the 2 GB project limit.")
+                stream.write(chunk)
+        if size == 0: raise HTTPException(422, "The selected video is empty.")
+        try: workspace.inspect(staging)
+        except ValueError as exc: raise HTTPException(422, str(exc)) from exc
+        if not workspace.cancel(wait=True): raise HTTPException(409, "The previous extraction worker did not stop safely.")
+        target = upload_dir / f"source-{uuid4().hex}{suffix}"
+        old_source = workspace.source_path
+        staging.replace(target)
+        metadata = workspace.accept_source(target, Path(filename).name)
+        if old_source and old_source != target: old_source.unlink(missing_ok=True)
+        publish_runtime()
+        return {"validated": True, "metadata": plain(metadata), "source_url": f"/video/source?v={target.stat().st_mtime_ns}"}
+    finally:
+        if staging.is_file(): staging.unlink()
+
+@app.post("/video/extract")
+def extract_video(interval: float = 1.0):
+    if not (0.01 <= interval <= 3600): raise HTTPException(422, "Frame interval must be between 0.01 and 3600 seconds.")
+    workspace = app.state.runtime.video_workspace
+    if workspace.web_extraction.get("state") == "extracting": raise HTTPException(409, "Frame extraction is already running.")
+    state = {"state": "extracting", "current": 0, "total": 0, "eta": 0.0, "frame": None, "extraction_duration": 0.0, "error": None}
     workspace.web_extraction = state
+    workspace.persist_state()
 
     def progress(current, total, eta, frame):
-        state.update(state="extracting", current=current, total=total, eta=eta, frame=frame)
+        state.update(state="extracting", current=min(current, total), total=total, eta=max(0.0, eta), frame=frame)
+        workspace.persist_state()
+        publish_runtime()
 
-    def done(completed, error):
-        state.update(state="complete" if completed else "cancelled", current=len(workspace.frames), total=len(workspace.frames), eta=0.0, error=error)
+    def done(completed, error, elapsed):
+        final_state = "complete" if completed else "error" if error else "cancelled"
+        count = len(workspace.frames)
+        state.update(state=final_state, current=count if completed else state["current"], total=count if completed else state["total"], eta=0.0, error=error, extraction_duration=elapsed)
+        if completed:
+            workspace.results, workspace.errors = {}, []
+            workspace.current_object, workspace.current_confidence = None, None
+            workspace.web_detection = {"state": "idle", "current": 0, "total": 0, "eta": 0.0, "frames": {}, "metrics": {}}
+            workspace.web_clusters = {"renamed": {}, "ignored": [], "deleted": [], "accepted": [], "selected": [], "expanded": [], "generated": [], "clustering": {"state": "idle", "progress": 0, "error": None}}
+            manifest = ensure_frame_manifest(app.state.runtime)
+            first_id = manifest["frames"][0]["frame_id"] if manifest["frames"] else None
+            workspace.web_frame_review = {"current_frame_id": first_id, "selected_frame_ids": [first_id] if first_id else []}
+        workspace.persist_state()
+        publish_runtime()
+    try: workspace.extract_async(1.0 / interval, progress, done)
+    except (ValueError, RuntimeError) as exc:
+        state.update(state="error", error=str(exc))
+        workspace.persist_state()
+        raise HTTPException(409 if isinstance(exc, RuntimeError) else 422, str(exc)) from exc
+    return {"accepted": True, "state": state}
 
-    workspace.extract_async(rate, progress, done)
-    return {"accepted": True, "metadata": plain(metadata)}
+@app.post("/video/cancel")
+def cancel_video_extraction():
+    workspace = app.state.runtime.video_workspace
+    if workspace.web_extraction.get("state") != "extracting": return {"cancelled": False, "state": workspace.web_extraction.get("state", "ready")}
+    stopped = workspace.cancel(wait=True)
+    if not stopped: raise HTTPException(409, "Extraction worker did not stop within the safety timeout.")
+    return {"cancelled": True, "state": workspace.web_extraction.get("state", "cancelled")}
+
+@app.api_route("/video/source", methods=["GET", "HEAD"])
+def video_source():
+    source = app.state.runtime.video_workspace.source_path
+    if not source or not source.is_file(): raise HTTPException(404, "No validated video is available.")
+    return FileResponse(source)
+
+@app.delete("/video/source")
+def remove_video_source():
+    workspace = app.state.runtime.video_workspace
+    if workspace.web_extraction.get("state") == "extracting": raise HTTPException(409, "Cancel extraction before removing the video.")
+    source = workspace.source_path
+    if source and source.is_file(): source.unlink()
+    workspace.source_path, workspace.metadata = None, None
+    workspace.web_extraction = {"state": "idle", "current": 0, "total": 0, "eta": 0.0, "frame": None}
+    workspace.persist_state()
+    publish_runtime()
+    return {"removed": True}
+
+
+@app.get("/frame-workspace")
+def get_frame_workspace():
+    return frame_workspace_payload(app.state.runtime)
+
+
+@app.patch("/frame-workspace/review")
+async def update_frame_review(request: Request):
+    try:
+        body = await request.json()
+    except (ValueError, TypeError, json.JSONDecodeError) as exc:
+        raise HTTPException(400, "Review state must be valid JSON.") from exc
+    if not isinstance(body, dict):
+        raise HTTPException(422, "Review state must be a JSON object.")
+    payload = frame_workspace_payload(app.state.runtime)
+    valid_ids = {item["frame_id"] for item in payload["frames"]}
+    current = body.get("current_frame_id")
+    selected = body.get("selected_frame_ids", [])
+    if current is not None and current not in valid_ids:
+        raise HTTPException(422, "Current frame is not present in the active frame manifest.")
+    if not isinstance(selected, list) or any(item not in valid_ids for item in selected):
+        raise HTTPException(422, "Selection contains a frame outside the active frame manifest.")
+    app.state.runtime.video_workspace.web_frame_review = {
+        "current_frame_id": current,
+        "selected_frame_ids": list(dict.fromkeys(selected)),
+    }
+    persist_frame_review(app.state.runtime)
+    return {"saved": True, "review": app.state.runtime.video_workspace.web_frame_review}
+
+
+@app.get("/frame-workspace/frames/{frame_id}")
+def get_workspace_frame(frame_id: str, variant: str = "raw"):
+    payload = frame_workspace_payload(app.state.runtime)
+    frame = next((item for item in payload["frames"] if item["frame_id"] == frame_id), None)
+    if frame is None:
+        raise HTTPException(404, "Frame is not present in the active frame manifest.")
+    raw = ROOT / "Workspace" / "Frames" / Path(frame["filename"]).name
+    detected = ROOT / "Workspace" / "Frames" / "Detected" / Path(frame["filename"]).name
+    if variant not in {"raw", "annotated"}:
+        raise HTTPException(422, "Frame variant must be raw or annotated.")
+    target = detected if variant == "annotated" and detected.is_file() else raw
+    if not _frame_file_available(target):
+        raise HTTPException(422 if target.is_file() else 404, "Frame image is missing, corrupt, or unavailable.")
+    return FileResponse(target, headers={"Cache-Control": "no-cache"})
 
 
 def publish(channel: str, payload: dict[str, Any]):
@@ -639,23 +1081,161 @@ async def create_semantic_object(request: Request):
 
 @app.patch("/objects/edit")
 async def edit_object(request: Request):
-    body = await request.json(); object_id = body.pop("object_id", "")
-    try: app.state.runtime.object_library.update(object_id, body)
+    try:
+        body = await request.json()
+        if not isinstance(body, dict): raise ValueError("Object edit payload must be an object")
+    except (ValueError, TypeError, json.JSONDecodeError) as exc:
+        raise HTTPException(422, "Object edit payload is invalid") from exc
+    object_id = str(body.pop("object_id", ""))
+    try:
+        response = app.state.runtime.object_library.update(object_id, body)
+        if getattr(response.status, "value", response.status) != "succeeded": raise RuntimeError("Object persistence failed")
     except KeyError as exc: raise HTTPException(404, "Object not found") from exc
     except ValueError as exc: raise HTTPException(422, str(exc)) from exc
-    sync_semantic("object-edited"); publish("object", {"objects": plain(app.state.runtime.object_library.list())}); return {"updated": True}
+    except RuntimeError as exc: raise HTTPException(503, str(exc)) from exc
+    sync_semantic("object-edited")
+    payload = object_manifest_payload()
+    publish("object", {"objects": plain(app.state.runtime.object_library.list())})
+    return {"object": next(item for item in payload["objects"] if item["object_id"] == object_id), "manifest": payload}
 
 
-@app.delete("/objects/{object_id}")
-def delete_object(object_id: str):
+def replace_object_references(object_id: str, replacement_id: str):
+    def replace(value):
+        if isinstance(value, dict): return {key: replace(item) for key, item in value.items()}
+        if isinstance(value, list): return [replace(item) for item in value]
+        return replacement_id if value == object_id else value
+    paths = [ROOT / "Assets" / "Actions" / "builder_state.json"]
+    for directory, pattern in (
+        (ROOT / "Assets" / "Actions", "*.action"),
+        (ROOT / "Assets" / "TaskIR", "*.json"),
+        (ROOT / "Assets" / "Execution Tasks", "*.json"),
+        (ROOT / "Assets" / "ExecutionPackages", "*.json"),
+    ):
+        if directory.is_dir(): paths.extend(directory.rglob(pattern))
+    for path in dict.fromkeys(paths):
+        if not path.is_file(): continue
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError, TypeError, json.JSONDecodeError):
+            continue
+        replaced = replace(value)
+        if replaced == value: continue
+        temporary = path.with_suffix(path.suffix + ".tmp")
+        temporary.write_text(json.dumps(replaced, indent=2), encoding="utf-8")
+        temporary.replace(path)
+
+
+def delete_object_record(object_id: str):
     item = next((value for value in app.state.runtime.object_library.list() if value["object_id"] == object_id), None)
     if item is None: raise HTTPException(404, "Object not found")
     dataset = Path(item.get("thumbnail", {}).get("path", "")).parent.resolve()
     permanent_instances = (ROOT / "Assets" / "ObjectLibrary" / "instances").resolve()
-    app.state.runtime.object_library.delete(object_id)
+    response = app.state.runtime.object_library.delete(object_id)
+    if getattr(response.status, "value", response.status) != "succeeded":
+        raise HTTPException(503, "Object persistence failed; no assets were removed")
     if dataset.parent == permanent_instances and dataset.is_dir():
-        shutil.rmtree(dataset)
-    sync_semantic("object-deleted"); publish("object", {"objects": plain(app.state.runtime.object_library.list())}); return {"deleted": True}
+        try: shutil.rmtree(dataset)
+        except OSError as exc: raise HTTPException(503, f"Object record deleted but dataset cleanup failed: {exc}") from exc
+
+
+@app.delete("/objects/{object_id}")
+def delete_object(object_id: str, force: bool = False, replacement_id: str = ""):
+    dependencies = object_dependency_payload(object_id)
+    if replacement_id:
+        if replacement_id == object_id or not any(item["object_id"] == replacement_id for item in app.state.runtime.object_library.list()):
+            raise HTTPException(422, "Replacement object is invalid")
+        replace_object_references(object_id, replacement_id)
+    elif dependencies["count"] and not force:
+        raise HTTPException(409, {"message": "Object is referenced by downstream assets", **dependencies})
+    delete_object_record(object_id)
+    sync_semantic("object-deleted")
+    publish("object", {"objects": plain(app.state.runtime.object_library.list())})
+    return {"deleted": True, "manifest": object_manifest_payload()}
+
+
+@app.post("/object-library/objects/{object_id}/duplicate")
+def duplicate_object(object_id: str):
+    library = app.state.runtime.object_library
+    source = next((plain(item) for item in library.list() if item["object_id"] == object_id), None)
+    if source is None: raise HTTPException(404, "Object not found")
+    name_root = f"{source['name']} Copy"
+    names = {str(item["name"]).casefold() for item in library.list()}
+    name = name_root
+    suffix = 2
+    while name.casefold() in names:
+        name = f"{name_root} {suffix}"; suffix += 1
+    crop = dict(source.get("thumbnail") or {})
+    original = Path(crop.get("path", "")).parent
+    target = ROOT / "Assets" / "ObjectLibrary" / "instances" / uuid4().hex
+    if original.is_dir():
+        shutil.copytree(original, target)
+        def remap(value):
+            if isinstance(value, str):
+                try:
+                    relative = Path(value).relative_to(original)
+                    return str(target / relative)
+                except ValueError:
+                    return value
+            if isinstance(value, list): return [remap(item) for item in value]
+            return value
+        crop = {key: remap(value) for key, value in crop.items()}
+    fields = {key: source.get(key, "") for key in ("category", "type", "material", "color", "weight", "description", "tags", "notes", "aliases", "properties", "metadata")}
+    fields["name"] = name
+    fields["confidence"] = source.get("average_confidence", 0)
+    try:
+        before = {item["object_id"] for item in library.list()}
+        response = library.create(fields, crop, ())
+        if getattr(response.status, "value", response.status) != "succeeded": raise RuntimeError("Object persistence failed")
+        created = next(item["object_id"] for item in library.list() if item["object_id"] not in before)
+    except Exception:
+        if target.is_dir(): shutil.rmtree(target, ignore_errors=True)
+        raise
+    sync_semantic("object-duplicated")
+    publish("object", {"objects": plain(library.list())})
+    payload = object_manifest_payload()
+    return {"object": next(item for item in payload["objects"] if item["object_id"] == created), "manifest": payload}
+
+
+@app.post("/object-library/objects/bulk-delete")
+async def bulk_delete_objects(request: Request):
+    try:
+        body = await request.json()
+        object_ids = list(dict.fromkeys(str(item) for item in body.get("object_ids", ()) if str(item)))
+        force = bool(body.get("force", False))
+    except (ValueError, TypeError, AttributeError, json.JSONDecodeError) as exc:
+        raise HTTPException(422, "Bulk delete payload is invalid") from exc
+    blocked = [object_dependency_payload(item) for item in object_ids]
+    blocked = [item for item in blocked if item["count"]]
+    if blocked and not force: raise HTTPException(409, {"message": "Objects are referenced by downstream assets", "blocked": blocked})
+    for object_id in object_ids: delete_object_record(object_id)
+    sync_semantic("objects-bulk-deleted")
+    publish("object", {"objects": plain(app.state.runtime.object_library.list())})
+    return {"deleted": object_ids, "manifest": object_manifest_payload()}
+
+
+@app.post("/object-library/categories")
+async def create_object_category(request: Request):
+    try: category = app.state.runtime.object_library.create_category((await request.json()).get("name"))
+    except (ValueError, TypeError, AttributeError, json.JSONDecodeError) as exc: raise HTTPException(422, str(exc)) from exc
+    return {"category": plain(category), "manifest": object_manifest_payload()}
+
+
+@app.patch("/object-library/categories/{category_id}")
+async def rename_object_category(category_id: str, request: Request):
+    try: category = app.state.runtime.object_library.rename_category(category_id, (await request.json()).get("name"))
+    except KeyError as exc: raise HTTPException(404, "Category not found") from exc
+    except (ValueError, TypeError, AttributeError, json.JSONDecodeError) as exc: raise HTTPException(422, str(exc)) from exc
+    publish("object", {"objects": plain(app.state.runtime.object_library.list())})
+    return {"category": plain(category), "manifest": object_manifest_payload()}
+
+
+@app.delete("/object-library/categories/{category_id}")
+def delete_object_category(category_id: str, replacement: str = ""):
+    try: app.state.runtime.object_library.delete_category(category_id, replacement)
+    except KeyError as exc: raise HTTPException(404, "Category not found") from exc
+    except ValueError as exc: raise HTTPException(422, str(exc)) from exc
+    publish("object", {"objects": plain(app.state.runtime.object_library.list())})
+    return {"deleted": True, "manifest": object_manifest_payload()}
 
 
 def detection_log(message: str):
@@ -666,6 +1246,7 @@ def detection_log(message: str):
 
 
 def publish_runtime():
+    persist_frame_review(app.state.runtime)
     payload = runtime_payload(app.state.runtime)
     for queue in tuple(app.state.runtime_subscribers):
         app.state.loop.call_soon_threadsafe(queue.put_nowait, payload)
@@ -738,8 +1319,215 @@ def run_detection():
     if getattr(workspace,"web_detection",{}).get("state")=="running":return {"accepted":False,"reason":"Detection is already running"}
     try:state=FrameProcessingService(app.state.runtime,detection_log,publish_runtime).run()
     except ValueError as exc:return {"accepted":False,"reason":str(exc)}
-    completed=state.get("state")=="complete"
-    return {"accepted":completed,"frames":len(workspace.frames),"detection":plain(state),"reason":None if completed else state.get("error") or "Detection failed"}
+    completed=state.get("state") in {"complete","partial"}
+    return {"accepted":completed,"frames":len(workspace.frames),"detection":plain(state),"reason":None if completed else state.get("error") or f"Detection {state.get('state', 'failed')}"}
+
+
+@app.post("/detection/cancel")
+def cancel_detection():
+    workspace = app.state.runtime.video_workspace
+    if getattr(workspace, "web_detection", {}).get("state") != "running":
+        return {"cancelled": False, "state": getattr(workspace, "web_detection", {}).get("state", "idle")}
+    workspace.cancel(wait=False)
+    return {"cancelled": True, "state": "cancelling"}
+
+
+@app.get("/frame-workspace/clusters")
+def get_frame_clusters():
+    return frame_cluster_payload(app.state.runtime)
+
+
+@app.post("/frame-workspace/clusters/generate")
+def generate_frame_clusters():
+    workspace = app.state.runtime.video_workspace
+    review = workspace.web_clusters
+    if review.get("clustering", {}).get("state") == "running":
+        raise HTTPException(409, "Cluster generation is already running.")
+    detections = detection_payload(app.state.runtime)["detections"]
+    if not workspace.frames:
+        raise HTTPException(422, "No extracted frames are available for clustering.")
+    if not detections:
+        raise HTTPException(422, "No object detections are available. Run YOLO before generating clusters.")
+    review["clustering"] = {"state": "running", "progress": 10, "error": None}
+    persist_frame_review(app.state.runtime)
+    try:
+        generated = ClusterEngine().build(detections)
+        created = datetime.now().isoformat(timespec="seconds")
+        for cluster in generated:
+            cluster.update(
+                created_at=created,
+                review_state="pending",
+                embedding_dimensions=max((len(item.get("embedding", [])) for item in cluster.get("instances", [])), default=0),
+            )
+        review.update(
+            generated=generated,
+            renamed={},
+            ignored=[],
+            deleted=[],
+            accepted=[],
+            selected=[],
+            expanded=[generated[0]["id"]] if generated else [],
+            clustering={"state": "complete", "progress": 100, "error": None},
+        )
+        persist_frame_review(app.state.runtime)
+        payload = frame_cluster_payload(app.state.runtime)
+        publish("cluster", payload)
+        return payload
+    except Exception as exc:
+        review["clustering"] = {"state": "failed", "progress": 0, "error": str(exc)}
+        persist_frame_review(app.state.runtime)
+        raise HTTPException(500, f"Cluster generation failed: {exc}") from exc
+
+
+@app.patch("/frame-workspace/clusters/review")
+async def update_frame_cluster_review(request: Request):
+    body = await request.json()
+    review = app.state.runtime.video_workspace.web_clusters
+    valid_ids = {item["id"] for item in review.get("generated", []) if item["id"] not in review.get("deleted", [])}
+    selected = body.get("selected_cluster_ids", review.get("selected", []))
+    expanded = body.get("expanded_cluster_ids", review.get("expanded", []))
+    if not isinstance(selected, list) or any(item not in valid_ids for item in selected):
+        raise HTTPException(422, "Cluster selection contains an unknown cluster.")
+    if not isinstance(expanded, list) or any(item not in valid_ids for item in expanded):
+        raise HTTPException(422, "Expanded cluster state contains an unknown cluster.")
+    review["selected"] = list(dict.fromkeys(selected))
+    review["expanded"] = list(dict.fromkeys(expanded))
+    persist_frame_review(app.state.runtime)
+    return frame_cluster_payload(app.state.runtime)
+
+
+@app.patch("/frame-workspace/clusters/{cluster_id}")
+async def rename_frame_cluster(cluster_id: str, request: Request):
+    body = await request.json()
+    review = app.state.runtime.video_workspace.web_clusters
+    cluster = next((item for item in review.get("generated", []) if item["id"] == cluster_id and cluster_id not in review.get("deleted", [])), None)
+    if cluster is None:
+        raise HTTPException(404, "Cluster not found.")
+    name = str(body.get("name", "")).strip()
+    if not name:
+        raise HTTPException(422, "Cluster name is required.")
+    review["renamed"][cluster_id] = name
+    persist_frame_review(app.state.runtime)
+    return frame_cluster_payload(app.state.runtime)
+
+
+@app.post("/frame-workspace/clusters/merge")
+async def merge_frame_clusters(request: Request):
+    body = await request.json()
+    ids = list(dict.fromkeys(body.get("cluster_ids", [])))
+    review = app.state.runtime.video_workspace.web_clusters
+    sources = [item for item in review.get("generated", []) if item["id"] in ids and item["id"] not in review.get("deleted", [])]
+    if len(ids) < 2 or len(sources) != len(ids):
+        raise HTTPException(422, "Select at least two valid clusters to merge.")
+    instances = [instance for source in sources for instance in source.get("instances", [])]
+    merged_id = f"cluster-merged-{uuid4().hex[:10]}"
+    confidence = sum(float(item.get("confidence", 0.0)) for item in instances) / max(1, len(instances))
+    representatives = list(dict.fromkeys(item["frame"] for item in sorted(instances, key=lambda item: float(item.get("confidence", 0.0)), reverse=True)))[:4]
+    merged = {
+        "id": merged_id,
+        "name": str(body.get("name") or " + ".join(review["renamed"].get(item["id"], item["name"]) for item in sources)),
+        "instances": instances,
+        "frame_count": len({item["frame"] for item in instances}),
+        "confidence": confidence,
+        "representative_frames": representatives,
+        "bounding_box_statistics": {
+            "average_width": sum(item["bounding_box"]["width"] for item in instances) / max(1, len(instances)),
+            "average_height": sum(item["bounding_box"]["height"] for item in instances) / max(1, len(instances)),
+        },
+        "status": "pending",
+        "review_state": "pending",
+        "created_at": datetime.now().isoformat(timespec="seconds"),
+        "embedding_dimensions": max((len(item.get("embedding", [])) for item in instances), default=0),
+    }
+    review["generated"] = [item for item in review["generated"] if item["id"] not in ids] + [merged]
+    review["selected"] = [merged_id]
+    review["expanded"] = [merged_id]
+    persist_frame_review(app.state.runtime)
+    return frame_cluster_payload(app.state.runtime)
+
+
+@app.post("/frame-workspace/clusters/{cluster_id}/split")
+def split_frame_cluster(cluster_id: str):
+    review = app.state.runtime.video_workspace.web_clusters
+    source = next((item for item in review.get("generated", []) if item["id"] == cluster_id and cluster_id not in review.get("deleted", [])), None)
+    if source is None:
+        raise HTTPException(404, "Cluster not found.")
+    instances = source.get("instances", [])
+    if len(instances) < 2:
+        raise HTTPException(422, "Cluster needs at least two detected objects to split.")
+    partitions = (instances[::2], instances[1::2])
+    children = []
+    for position, group in enumerate(partitions, 1):
+        child_id = f"{cluster_id}-split-{uuid4().hex[:8]}"
+        children.append({
+            **source,
+            "id": child_id,
+            "name": f"{review['renamed'].get(cluster_id, source['name'])} {position}",
+            "instances": group,
+            "frame_count": len({item["frame"] for item in group}),
+            "confidence": sum(float(item.get("confidence", 0.0)) for item in group) / len(group),
+            "representative_frames": list(dict.fromkeys(item["frame"] for item in sorted(group, key=lambda item: float(item.get("confidence", 0.0)), reverse=True)))[:4],
+            "created_at": datetime.now().isoformat(timespec="seconds"),
+        })
+    review["generated"] = [item for item in review["generated"] if item["id"] != cluster_id] + children
+    review["selected"] = [item["id"] for item in children]
+    review["expanded"] = [children[0]["id"]]
+    persist_frame_review(app.state.runtime)
+    return frame_cluster_payload(app.state.runtime)
+
+
+@app.delete("/frame-workspace/clusters/{cluster_id}")
+def delete_frame_cluster(cluster_id: str):
+    review = app.state.runtime.video_workspace.web_clusters
+    if not any(item["id"] == cluster_id for item in review.get("generated", [])):
+        raise HTTPException(404, "Cluster not found.")
+    if cluster_id not in review["deleted"]:
+        review["deleted"].append(cluster_id)
+    review["selected"] = [item for item in review.get("selected", []) if item != cluster_id]
+    review["expanded"] = [item for item in review.get("expanded", []) if item != cluster_id]
+    persist_frame_review(app.state.runtime)
+    return frame_cluster_payload(app.state.runtime)
+
+
+@app.post("/frame-workspace/clusters/handoff")
+async def handoff_frame_clusters(request: Request):
+    body = await request.json()
+    ids = list(dict.fromkeys(body.get("cluster_ids", [])))
+    review = app.state.runtime.video_workspace.web_clusters
+    clusters = [item for item in review.get("generated", []) if item["id"] in ids and item["id"] not in review.get("deleted", [])]
+    if not ids or len(clusters) != len(ids):
+        raise HTTPException(422, "Select one or more valid clusters to send to Object Library.")
+    manifest = {item["ordinal"]: item for item in frame_workspace_payload(app.state.runtime)["frames"]}
+    service = ObjectLibraryService(app.state.runtime.object_library)
+    created, errors = [], []
+    for cluster in clusters:
+        name = review["renamed"].get(cluster["id"], cluster["name"])
+        enriched_instances = []
+        for instance in cluster.get("instances", []):
+            frame = manifest.get(int(instance["frame"]))
+            enriched_instances.append({**instance, "frame_id": frame["frame_id"] if frame else f"video-frame-{instance['frame']}"})
+        enriched = {**cluster, "name": name, "instances": enriched_instances}
+        metadata = {
+            "cluster_id": cluster["id"],
+            "cluster_name": name,
+            "frame_ids": [item["frame_id"] for item in enriched_instances],
+            "detections": plain(enriched_instances),
+            "review_state": "accepted",
+        }
+        try:
+            created.append(service.create_from_cluster(enriched, {"name": name, "metadata": metadata}))
+            if cluster["id"] not in review["accepted"]:
+                review["accepted"].append(cluster["id"])
+        except Exception as exc:
+            errors.append({"cluster_id": cluster["id"], "message": str(exc)})
+    review["selected"] = [item for item in review.get("selected", []) if item not in {cluster["id"] for cluster in clusters if cluster["id"] in review["accepted"]}]
+    persist_frame_review(app.state.runtime)
+    if not created:
+        raise HTTPException(422, {"message": "No selected clusters could be imported.", "errors": errors})
+    sync_semantic("cluster-handoff")
+    publish("object", {"objects": plain(app.state.runtime.object_library.list())})
+    publish("cluster", frame_cluster_payload(app.state.runtime))
+    return {"created": plain(created), "errors": errors, "clusters": frame_cluster_payload(app.state.runtime)}
 
 
 @app.post("/clusters/build")

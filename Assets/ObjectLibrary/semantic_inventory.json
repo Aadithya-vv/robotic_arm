@@ -1,75 +1,122 @@
 {
   "version": "1.0",
-  "generated_at": "2026-07-28T03:53:22.272055+00:00",
+  "generated_at": "2026-07-29T03:23:54.610688+00:00",
   "objects": [
     {
-      "object_id": "user-object-32468f735f2d",
-      "object_name": "Spoon",
+      "object_id": "user-object-6e6485599b8c",
+      "object_name": "Bottle",
       "category": "Detected Objects",
-      "description": "Semantic object generated from 42 detected frames.",
-      "aliases": [
-        "fork"
-      ],
+      "description": "Semantic object generated from 13 detected frames.",
+      "aliases": [],
       "visual_descriptors": [],
       "instance_frames": [
-        "video-frame-41"
+        "7b8fb734a8944b5f80e6b8314b3a9866:16"
       ],
       "instance_images": [
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0041.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0014.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0005.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0060.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0015.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0061.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0051.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0017.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0018.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0012.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0040.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0001.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0039.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0004.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0028.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0002.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0042.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0003.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0011.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0044.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0056.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0013.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0057.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0053.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0055.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0008.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0049.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0058.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0054.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0027.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0052.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0010.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0043.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0022.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0032.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0019.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0033.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0016.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0030.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0023.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0048.png",
-        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\6c9069464ad74360aeaa39bd62c6ff7b\\frame0026.png"
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\420bdeceaea940ae8612e104eeb726f4\\frame0016.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\420bdeceaea940ae8612e104eeb726f4\\frame0053.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\420bdeceaea940ae8612e104eeb726f4\\frame0023.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\420bdeceaea940ae8612e104eeb726f4\\frame0003.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\420bdeceaea940ae8612e104eeb726f4\\frame0054.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\420bdeceaea940ae8612e104eeb726f4\\frame0063.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\420bdeceaea940ae8612e104eeb726f4\\frame0059.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\420bdeceaea940ae8612e104eeb726f4\\frame0017.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\420bdeceaea940ae8612e104eeb726f4\\frame0002.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\420bdeceaea940ae8612e104eeb726f4\\frame0061.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\420bdeceaea940ae8612e104eeb726f4\\frame0055.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\420bdeceaea940ae8612e104eeb726f4\\frame0024.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\420bdeceaea940ae8612e104eeb726f4\\frame0060.png"
       ],
       "recognition_history": [],
-      "average_confidence": 0.8060298036961329,
-      "learning_date": "2026-07-21T11:35:40",
-      "last_updated": "2026-07-21T11:36:45",
+      "average_confidence": 0.63696133517302,
+      "learning_date": "2026-07-29T08:53:54",
+      "last_updated": "2026-07-29T08:53:54",
       "source_videos": [],
       "source_frames": [
-        "video-frame-41"
+        "7b8fb734a8944b5f80e6b8314b3a9866:16"
       ],
       "tags": [],
       "relationships": [],
       "affordances": [],
-      "semantic_score": 0.825142,
+      "semantic_score": 0.657755,
+      "version": "1.0",
+      "metadata": {
+        "user_name": "Bottle",
+        "ai_name": "",
+        "recognition_statistics": {
+          "matches": 0,
+          "misses": 0
+        },
+        "feature_descriptor_references": [],
+        "times_seen": 1
+      }
+    },
+    {
+      "object_id": "user-object-b16a68a8029f",
+      "object_name": "Spoon",
+      "category": "Detected Objects",
+      "description": "Semantic object generated from 42 detected frames.",
+      "aliases": [],
+      "visual_descriptors": [],
+      "instance_frames": [
+        "9653584283944150865f64b81cdb367b:41"
+      ],
+      "instance_images": [
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0041.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0014.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0005.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0060.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0015.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0061.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0051.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0017.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0018.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0012.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0040.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0001.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0039.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0004.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0028.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0002.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0042.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0003.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0011.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0044.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0056.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0013.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0057.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0053.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0055.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0008.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0049.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0058.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0054.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0027.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0052.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0010.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0043.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0022.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0032.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0019.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0033.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0016.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0030.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0023.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0048.png",
+        "C:\\Users\\aadit\\OneDrive\\Desktop\\ABP_roboticArm\\Assets\\ObjectLibrary\\instances\\82c499bfedcd475a92441ca52fcba318\\frame0026.png"
+      ],
+      "recognition_history": [],
+      "average_confidence": 0.9667592644691467,
+      "learning_date": "2026-07-28T12:57:16",
+      "last_updated": "2026-07-28T14:07:01",
+      "source_videos": [],
+      "source_frames": [
+        "9653584283944150865f64b81cdb367b:41"
+      ],
+      "tags": [],
+      "relationships": [],
+      "affordances": [],
+      "semantic_score": 0.756694,
       "version": "1.0",
       "metadata": {
         "user_name": "Spoon",
@@ -84,11 +131,11 @@
     }
   ],
   "statistics": {
-    "total_objects": 1,
+    "total_objects": 2,
     "categories": {
-      "Detected Objects": 1
+      "Detected Objects": 2
     },
     "tags": {},
-    "average_semantic_score": 0.825142
+    "average_semantic_score": 0.7072244999999999
   }
 }

@@ -1,0 +1,11 @@
+{
+  "execution_task_id": "Bottle moving",
+  "name": "Bottle moving",
+  "action_id": "action-bf51e5a3981b",
+  "created_at": "2026-07-29T03:35:01.238075+00:00",
+  "duration": 5.0,
+  "compiler_status": "Compiled",
+  "compiler_version": "1.0.0",
+  "preview": "preview.webm",
+  "folder": "Bottle moving.task"
+}

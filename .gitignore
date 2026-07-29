@@ -27,6 +27,10 @@ htmlcov/
 # Temporary
 *.tmp
 
+# TaskGraph local runtime state
+.taskgraph-session/
+.taskgraph-instance.json
+
 # Web presentation
 WebApp/node_modules/
 WebApp/dist/

@@ -1,0 +1,302 @@
+[
+  {
+    "segment_id": "segment-001",
+    "operation_id": "op-001",
+    "type": "PICK",
+    "object_id": "user-object-32468f735f2d",
+    "frames": [
+      0,
+      0
+    ],
+    "timestamps": [
+      0.2,
+      0.2
+    ],
+    "coordinates": [
+      {
+        "x": -2.8217406539252314,
+        "y": 1.4337901278742216,
+        "rotation": 0.0
+      },
+      {
+        "x": -2.8217406539252314,
+        "y": 1.4337901278742216,
+        "rotation": 0.0
+      }
+    ],
+    "inference": "First observed object state establishes acquisition",
+    "metadata": {
+      "distance": 0.0
+    }
+  },
+  {
+    "segment_id": "segment-002",
+    "operation_id": "op-002",
+    "type": "TRANSPORT",
+    "object_id": "user-object-32468f735f2d",
+    "frames": [
+      0,
+      1
+    ],
+    "timestamps": [
+      0.2,
+      0.4
+    ],
+    "coordinates": [
+      {
+        "x": -2.8217406539252314,
+        "y": 1.4337901278742216,
+        "rotation": 0.0
+      },
+      {
+        "x": -1.7689618316946536,
+        "y": 1.4470734448118,
+        "rotation": 0.0
+      }
+    ],
+    "inference": "Coordinate displacement indicates transport",
+    "metadata": {
+      "distance": 1.052863
+    }
+  },
+  {
+    "segment_id": "segment-003",
+    "operation_id": "op-003",
+    "type": "IDLE",
+    "object_id": "user-object-32468f735f2d",
+    "frames": [
+      1,
+      2
+    ],
+    "timestamps": [
+      0.4,
+      0.5
+    ],
+    "coordinates": [
+      {
+        "x": -1.7689618316946536,
+        "y": 1.4470734448118,
+        "rotation": 0.0
+      },
+      {
+        "x": -1.7689618316946536,
+        "y": 1.4470734448118,
+        "rotation": 0.0
+      }
+    ],
+    "inference": "No significant coordinate displacement",
+    "metadata": {
+      "distance": 0.0
+    }
+  },
+  {
+    "segment_id": "segment-004",
+    "operation_id": "op-004",
+    "type": "TRANSPORT",
+    "object_id": "user-object-32468f735f2d",
+    "frames": [
+      2,
+      3
+    ],
+    "timestamps": [
+      0.5,
+      0.7
+    ],
+    "coordinates": [
+      {
+        "x": -1.7689618316946536,
+        "y": 1.4470734448118,
+        "rotation": 0.0
+      },
+      {
+        "x": -0.8210416083328669,
+        "y": 1.4869239023505947,
+        "rotation": 105.0
+      }
+    ],
+    "inference": "Coordinate displacement indicates transport",
+    "metadata": {
+      "distance": 0.948758
+    }
+  },
+  {
+    "segment_id": "segment-005",
+    "operation_id": "op-005",
+    "type": "IDLE",
+    "object_id": "user-object-32468f735f2d",
+    "frames": [
+      3,
+      4
+    ],
+    "timestamps": [
+      0.7,
+      1.3
+    ],
+    "coordinates": [
+      {
+        "x": -0.8210416083328669,
+        "y": 1.4869239023505947,
+        "rotation": 105.0
+      },
+      {
+        "x": -0.8210416083328669,
+        "y": 1.4869239023505947,
+        "rotation": 105.0
+      }
+    ],
+    "inference": "No significant coordinate displacement",
+    "metadata": {
+      "distance": 0.0
+    }
+  },
+  {
+    "segment_id": "segment-006",
+    "operation_id": "op-006",
+    "type": "TRANSPORT",
+    "object_id": "user-object-32468f735f2d",
+    "frames": [
+      4,
+      5
+    ],
+    "timestamps": [
+      1.3,
+      1.75
+    ],
+    "coordinates": [
+      {
+        "x": -0.8210416083328669,
+        "y": 1.4869239023505947,
+        "rotation": 105.0
+      },
+      {
+        "x": -0.4393569548556391,
+        "y": -1.9867164296993918,
+        "rotation": 105.0
+      }
+    ],
+    "inference": "Coordinate displacement indicates transport",
+    "metadata": {
+      "distance": 3.494547
+    }
+  },
+  {
+    "segment_id": "segment-007",
+    "operation_id": "op-007",
+    "type": "TRANSPORT",
+    "object_id": "user-object-32468f735f2d",
+    "frames": [
+      5,
+      6
+    ],
+    "timestamps": [
+      1.75,
+      2.35
+    ],
+    "coordinates": [
+      {
+        "x": -0.4393569548556391,
+        "y": -1.9867164296993918,
+        "rotation": 105.0
+      },
+      {
+        "x": 1.5571476571812575,
+        "y": -2.0,
+        "rotation": 105.0
+      }
+    ],
+    "inference": "Coordinate displacement indicates transport",
+    "metadata": {
+      "distance": 1.996549
+    }
+  },
+  {
+    "segment_id": "segment-008",
+    "operation_id": "op-008",
+    "type": "TRANSPORT",
+    "object_id": "user-object-32468f735f2d",
+    "frames": [
+      6,
+      7
+    ],
+    "timestamps": [
+      2.35,
+      3.15
+    ],
+    "coordinates": [
+      {
+        "x": 1.5571476571812575,
+        "y": -2.0,
+        "rotation": 105.0
+      },
+      {
+        "x": 2.5092621540972333,
+        "y": 1.3872975051405776,
+        "rotation": 105.0
+      }
+    ],
+    "inference": "Coordinate displacement indicates transport",
+    "metadata": {
+      "distance": 3.518566
+    }
+  },
+  {
+    "segment_id": "segment-009",
+    "operation_id": "op-009",
+    "type": "IDLE",
+    "object_id": "user-object-32468f735f2d",
+    "frames": [
+      7,
+      8
+    ],
+    "timestamps": [
+      3.15,
+      3.7
+    ],
+    "coordinates": [
+      {
+        "x": 2.5092621540972333,
+        "y": 1.3872975051405776,
+        "rotation": 105.0
+      },
+      {
+        "x": 2.5092621540972333,
+        "y": 1.3872975051405776,
+        "rotation": 0.0
+      }
+    ],
+    "inference": "No significant coordinate displacement",
+    "metadata": {
+      "distance": 0.0
+    }
+  },
+  {
+    "segment_id": "segment-010",
+    "operation_id": "op-010",
+    "type": "PLACE",
+    "object_id": "user-object-32468f735f2d",
+    "frames": [
+      8,
+      8
+    ],
+    "timestamps": [
+      3.7,
+      3.7
+    ],
+    "coordinates": [
+      {
+        "x": 2.5092621540972333,
+        "y": 1.3872975051405776,
+        "rotation": 0.0
+      },
+      {
+        "x": 2.5092621540972333,
+        "y": 1.3872975051405776,
+        "rotation": 0.0
+      }
+    ],
+    "inference": "Final observed object state establishes placement",
+    "metadata": {
+      "distance": 0.0
+    }
+  }
+]
